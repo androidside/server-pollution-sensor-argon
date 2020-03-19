@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+
+<html>
+<head>
+{% if title %}
+<title>{{ title }} - server_argon</title> {% else %}
+<title>server Argon</title> {% endif %}
+</head>
+<body>
+	<h1>Record a new value</h1>
+	<form action="" method="post" novalidate>
+		{{ form.hidden_tag() }}
+		<p>
+			<b>{{ form.id.label }}</b><br> {{ form.id(size=32)}}
+			{% for error in form.id.errors %}
+			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+		</p>
+		<p>
+			<b>{{ form.latitude.label }}</b><br> {{ form.latitude(size=32)}}
+			{% for error in form.latitude.errors %}
+			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+		</p>
+		<p>
+			<b>{{ form.longitude.label }}</b><br> {{ form.longitude(size=32)}}
+			{% for error in form.longitude.errors %}
+			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+		</p>
+		<p>
+			<b>{{ form.datetime.label }}</b><br> {{ form.datetime(size=32)}}
+			{% for error in form.datetime.errors %}
+			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+		</p>
+		<p>
+			<b>{{ form.intensity.label }}</b><br> {{ form.intensity(size=32)}}
+			{% for error in form.intensity.errors %}
+			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+		</p>
+		<p>{{ form.submit() }}</p>
+	</form>
+	{% for sensor in sensors %}
+	<div>
+		<p>
+			<b>id</b>= {{ sensor.id}} <b>latitude</b>= {{ sensor.latitude}} <b>longitude</b>=
+			{{ sensor.longitude}} <b>datetime</b>= {{ sensor.datetime}} <b>intensity</b>=
+			{{ sensor.intensity}}
+		</p>
+	</div>
+	{% endfor %}
+</body>
+</html>
+
+{% endblock %}
