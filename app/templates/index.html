@@ -11,8 +11,8 @@
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>
-			<b>{{ form.id.label }}</b><br> {{ form.id(size=32)}}
-			{% for error in form.id.errors %}
+			<b>{{ form.sensor_id.label }}</b><br> {{ form.sensor_id(size=32)}}
+			{% for error in form.sensor_id.errors %}
 			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
 		</p>
 		<p>
@@ -37,12 +37,12 @@
 		</p>
 		<p>{{ form.submit() }}</p>
 	</form>
-	{% for sensor in sensors %}
+	{% for reading in readings %}
 	<div>
 		<p>
-			<b>id</b>= {{ sensor.id}} <b>latitude</b>= {{ sensor.latitude}} <b>longitude</b>=
-			{{ sensor.longitude}} <b>datetime</b>= {{ sensor.datetime}} <b>intensity</b>=
-			{{ sensor.intensity}}
+			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= {{reading.latitude}}
+			<b>longitude</b>={{reading.longitude}} <b>datetime</b>= {{reading.datetime}} <b>intensity</b>=
+			{{reading.intensity}}
 		</p>
 	</div>
 	{% endfor %}
