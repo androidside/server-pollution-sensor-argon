@@ -1,9 +1,12 @@
 from app import app, db
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, jsonify
 from app.forms import SensorForm
 from datetime import datetime
 from app.models import Reading
+from app.api.errors import bad_request
 import random
+import json
+
 
 @app.route('/', methods=['GET', 'POST'])
 @app.route('/index', methods=['GET', 'POST'])
@@ -43,3 +46,14 @@ def add_five_readings():
         db.session.add(reading)
     db.session.commit()
     return redirect(url_for('index'))
+
+@app.route('/add_reading', methods=['POST'])
+def add_reading(): 
+    data = request.get_json() or {}
+    if 'sensor_id' not in data or 'latitude' not in data or 'longitude' not in data or 'datetime' not in data or 'intensity' not in data:
+        return bad_request('must include full sensor info')
+    reading = Reading()
+    reading.from_dict(json.loads(data))
+    db.session.add(reading)
+    db.session.commit()
+    return jsonify(data),200

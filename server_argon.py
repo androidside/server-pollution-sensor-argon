@@ -7,4 +7,6 @@ from datetime import datetime
 def make_shell_context():
     return {'db': db, 'Reading':Reading, 'datetime': datetime}
 
+app.run()
+
 # From command line launch $flask run --host=0.0.0.0
