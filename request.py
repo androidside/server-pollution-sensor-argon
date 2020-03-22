@@ -2,7 +2,7 @@
 
 import requests as req
 import json
-from app.models import Reading
+# from app.models import Reading
 from datetime import datetime
 import random
 import time
