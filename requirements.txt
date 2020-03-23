@@ -16,6 +16,7 @@ Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
 Flask-Moment==0.5.2
+Flask-MQTT==1.1.0
 Flask-Script==2.0.6
 Flask-SQLAlchemy==2.3.2
 Flask-WTF==0.14.2
@@ -29,6 +30,7 @@ jedi==0.16.0
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.0
+paho-mqtt==1.5.0
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
