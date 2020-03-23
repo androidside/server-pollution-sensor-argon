@@ -8,7 +8,8 @@
 	<div>
 		server_argon: <a href="{{ url_for('index')}}">Home</a>
 		<a href="{{ url_for('delete_all_readings')}}">Delete all readings</a>
-		<a href="{{ url_for('add_five_readings')}}">Add 5 readings</a>
+		<a href="{{ url_for('add_five_readings_to_db')}}">Add 5 readings to db</a>
+		<a href="{{ url_for('send_five_readings_mtqq')}}">Send 5 readings via MTQQ</a>
 	</div>
 	<hr>
 	{% with messages = get_flashed_messages() %} {% if messages %}

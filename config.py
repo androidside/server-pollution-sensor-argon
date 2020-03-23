@@ -7,6 +7,15 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or \
         'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    MQTT_BROKER_URL = 'localhost'
+    MQTT_BROKER_PORT = 1883
+    MQTT_USERNAME = 'user'
+    MQTT_PASSWORD = 'secret'
+    MQTT_REFRESH_TIME = 1.0  # refresh time in seconds
+    MQTT_KEEPALIVE = 5  # set the time interval for sending a ping to the broker to 5 seconds
+    MQTT_TLS_ENABLED = False  # set TLS to disabled for testing purposes
+
+    
 #     
 #     MAIL_SERVER = os.environ.get('MAIL_SERVER')
 #     MAIL_PORT = int(os.environ.get('MAIL_PORT') or 25)

@@ -17,6 +17,7 @@ def screen_clear():
    else:
       _ = system('clear')
 
+#BE CAREFUL, THIS STARTS ANOTHER FLASK APP !!!!!!!!!!!!!!!
 
 previous_readings_count = Reading.query.count();
 previous_readings = Reading.query.all();  
