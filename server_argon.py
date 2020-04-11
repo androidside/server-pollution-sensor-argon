@@ -14,8 +14,9 @@ def make_shell_context():
 os.system('tasklist | findstr py')
 #os.system('taskkill.exe /F /IM "python*" /T')
 if __name__== "__main__":
-     app.run()
+#    app.run()
 #    run_simple('localhost', 5000, app, use_reloader=True)
+   run_simple('0.0.0.0', 5000, app, use_reloader=True)
 
 
 # From command line launch $flask run --host=0.0.0.0
