@@ -38,28 +38,21 @@
 		<p>{{ form.submit() }}</p>
 	</form>
 
-
-	<div>
-		<p id="demo">A Paragraph.</p>
-		<button type="button" onclick="myFunction({{readings}})">Try
-			it</button>
-		<p>(myFunction is stored in an external file called "myScript.js")</p>
-
-	</div>
-
-	<span id="databaseReadings"> <a
-		href="javascript:get_database('#databaseReadings');">UpdateDatabase</a>
+	<span id="databaseReadingsButton"> <a
+		href="javascript:get_database('#databaseReadingsText');">UpdateDatabase</a>
 	</span>
-	
-	{% for reading in readings %}
 	<div>
-		<p>
-			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>=
-			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>=
-			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}}
-		</p>
+	<span id="#databaseReadingsText"> Result goes here </span>
 	</div>
-	{% endfor %}
+<!-- 	{% for reading in readings %} -->
+<!-- 	<div> -->
+<!-- 		<p> -->
+<!-- 			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= -->
+<!-- 			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>= -->
+<!-- 			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}} -->
+<!-- 		</p> -->
+<!-- 	</div> -->
+<!-- 	{% endfor %} -->
 </body>
 </html>
 
