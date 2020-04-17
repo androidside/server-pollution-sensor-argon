@@ -11,38 +11,52 @@
 	<form action="" method="post" novalidate>
 		{{ form.hidden_tag() }}
 		<p>
-			<b>{{ form.sensor_id.label }}</b><br> {{ form.sensor_id(size=32)}}
-			{% for error in form.sensor_id.errors %}
-			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+			<b>{{ form.sensor_id.label }}</b><br> {{
+			form.sensor_id(size=32)}} {% for error in form.sensor_id.errors %} <span
+				style="color: red;">[{{error }}]</span> {% endfor %}
 		</p>
 		<p>
 			<b>{{ form.latitude.label }}</b><br> {{ form.latitude(size=32)}}
-			{% for error in form.latitude.errors %}
-			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+			{% for error in form.latitude.errors %} <span style="color: red;">[{{error
+				}}]</span> {% endfor %}
 		</p>
 		<p>
-			<b>{{ form.longitude.label }}</b><br> {{ form.longitude(size=32)}}
-			{% for error in form.longitude.errors %}
-			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+			<b>{{ form.longitude.label }}</b><br> {{
+			form.longitude(size=32)}} {% for error in form.longitude.errors %} <span
+				style="color: red;">[{{error }}]</span> {% endfor %}
 		</p>
 		<p>
 			<b>{{ form.datetime.label }}</b><br> {{ form.datetime(size=32)}}
-			{% for error in form.datetime.errors %}
-			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+			{% for error in form.datetime.errors %} <span style="color: red;">[{{error
+				}}]</span> {% endfor %}
 		</p>
 		<p>
-			<b>{{ form.intensity.label }}</b><br> {{ form.intensity(size=32)}}
-			{% for error in form.intensity.errors %}
-			 <span style="color: red;">[{{error }}]</span> {% endfor %} 
+			<b>{{ form.intensity.label }}</b><br> {{
+			form.intensity(size=32)}} {% for error in form.intensity.errors %} <span
+				style="color: red;">[{{error }}]</span> {% endfor %}
 		</p>
 		<p>{{ form.submit() }}</p>
 	</form>
+
+
+	<div>
+		<p id="demo">A Paragraph.</p>
+		<button type="button" onclick="myFunction({{readings}})">Try
+			it</button>
+		<p>(myFunction is stored in an external file called "myScript.js")</p>
+
+	</div>
+
+	<span id="databaseReadings"> <a
+		href="javascript:get_database('#databaseReadings');">UpdateDatabase</a>
+	</span>
+	
 	{% for reading in readings %}
 	<div>
 		<p>
-			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= {{reading.latitude}}
-			<b>longitude</b>={{reading.longitude}} <b>datetime</b>= {{reading.datetime}} <b>intensity</b>=
-			{{reading.intensity}}
+			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>=
+			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>=
+			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}}
 		</p>
 	</div>
 	{% endfor %}

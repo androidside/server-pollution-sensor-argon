@@ -96,3 +96,16 @@ def add_reading():
     db.session.add(reading)
     db.session.commit()
     return jsonify(data),200
+
+
+@app.route('/database', methods=['POST'])
+def send_database():
+    readings = Reading.query.all();
+    if len(readings)>0 :
+        list=[]
+        for r in readings:
+                list.append(r.to_dict())
+        return jsonify({'text' : json.dumps(list)}) #return request
+    #Database empty
+    else:
+        return jsonify({'text': 0});

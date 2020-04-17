@@ -3,7 +3,17 @@
 {% if title %}
 <title>{{ title }} - server_argon</title> {% else %}
 <title>server_argon</title> {% endif %}
+
+
+
 </head>
+{% block scripts %}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/database.js"></script>
+
+{% endblock %}
+
 <body>
 	<div>
 		server_argon: <a href="{{ url_for('index')}}">Home</a>
@@ -21,3 +31,5 @@
 	{% block content %}{% endblock %}
 </body>
 </html>
+
+

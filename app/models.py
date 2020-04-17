@@ -30,6 +30,21 @@ class Reading(db.Model):
     
     def format_mtqq_message(self): 
         return "'id':{}, 'sensor_id':{}, 'latitude':{}, 'longitude':{}, 'datetime':{}, 'intensity':{}".format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime.strftime('%Y%m%d%H%M%S.%f'), self.intensity)
+    
+#     def to_dict(self, row):
+#         d = {}
+#         for column in row.__table__.columns:
+#             d[column.name] = str(getattr(row, column.name))
+#         return d
+
+    def to_dict(self):
+        d = {}
+        for column in self.__table__.columns:
+            d[column.name] = str(getattr(self, column.name))
+        return d
+    
+    def test(self):
+        return 'hello world'
     def __repr__(self):
         return '<id={}, sensor_id={}, latitude={}, longitude={}, datetime={}, intensity={}>'.format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime, self.intensity)
 
