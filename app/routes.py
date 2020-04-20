@@ -97,6 +97,19 @@ def add_reading():
     db.session.commit()
     return jsonify(data),200
 
+@app.route('/postReadingESP32', methods=['POST'])
+def postReadingESP32(): 
+    data = request.get_json() or {}
+    if 'sensor_id' not in data or 'latitude' not in data or 'longitude' not in data or 'datetime' not in data or 'intensity' not in data:
+        return bad_request('must include full sensor info')
+    reading = Reading()
+#   data is already a dictionary {'key1' : 'value1', 'key2' : 'value2'}
+    reading.from_dict_noDateTime(data)
+    db.session.add(reading)
+    db.session.commit()
+    return jsonify(data),200 #I need to return a tuple, a JSON with a status code
+
+
 
 @app.route('/database', methods=['POST'])
 def send_database():
@@ -108,4 +121,30 @@ def send_database():
         return jsonify({'text' : json.dumps(list)}) #return request
     #Database empty
     else:
-        return jsonify({'text': 0});
+        return jsonify({'text': 0}); #We check on the javascript if 0 was sent
+    
+    
+def pretty_print_POST(req):
+    """
+    At this point it is completely built and ready
+    to be fired; it is "prepared".
+
+    However pay attention at the formatting used in 
+    this function because it is programmed to be pretty 
+    printed and may differ from the actual request.
+    """
+# Request doesnt have body ?     
+#     print('{}\n{}\r\n{}\r\n\r\n{}'.format(
+#         '-----------START-----------',
+#         req.method + ' ' + req.url,
+#         '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+#         req.body,
+#     ))
+
+    print('{}\n{}\r\n{}\r\n\r\n{}'.format(
+        '-----------START-----------',
+        req.method + ' ' + req.url,
+        '\r\n'.join('{}: {}'.format(k, v) for k, v in req.headers.items()),
+        req.url,
+    ))
+
