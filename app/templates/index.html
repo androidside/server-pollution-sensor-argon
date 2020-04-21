@@ -38,36 +38,42 @@
 		<p>{{ form.submit() }}</p>
 	</form>
 
-	<span id="#counter"> <a
-		href="javascript:increaseCounter('#counterValue');">Start counter</a>
-	</span>
-	
-	<span id="#counterValue">0</span>
-	
+
+
 	<span id="databaseReadingsButton"> <a
 		href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a>
 	</span>
-	
-	<p> Database Readings count:</p>
-	
+	<span id="#counter"> <a
+		href="javascript:increaseCounter('#counterValue');"># of calls = </a>
+	</span>
+
+	<span id="#counterValue">0</span>
+
+	<p>
+		Database Updates Status: <input type="checkbox" id="dbupdates"
+			name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status</label>
+	</p>
+
+	<p>Database Readings count:</p>
+
 	<span id="#databaseReadingsCount">0</span>
-	
+
 	<div>
-	<span id="#databaseReadingsText"> Result goes here </span>
+		<span id="#databaseReadingsText"> Result goes here </span>
 	</div>
-	
-	
-	
-	
-<!-- 	{% for reading in readings %} -->
-<!-- 	<div> -->
-<!-- 		<p> -->
-<!-- 			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= -->
-<!-- 			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>= -->
-<!-- 			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}} -->
-<!-- 		</p> -->
-<!-- 	</div> -->
-<!-- 	{% endfor %} -->
+
+
+
+
+	<!-- 	{% for reading in readings %} -->
+	<!-- 	<div> -->
+	<!-- 		<p> -->
+	<!-- 			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= -->
+	<!-- 			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>= -->
+	<!-- 			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}} -->
+	<!-- 		</p> -->
+	<!-- 	</div> -->
+	<!-- 	{% endfor %} -->
 </body>
 </html>
 

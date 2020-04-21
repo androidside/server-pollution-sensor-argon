@@ -13,7 +13,17 @@ function get_database(readingsHolder, readingsCountHolder) {
 		$(readingsHolder).text("{{ _('Error: Could not contact server.') }}");
 	}).always(function(){
 //		alert("finished");
-		setTimeout(triggerAsyncRequests, 2000);
+		//When we have finished executing the function we set a time to trigger it again
+		//Only if button is checked
+		 if (document.getElementById('dbupdates').checked) 
+		  {
+			  setTimeout(triggerAsyncRequests, 2000);
+		      document.getElementById('dbstatus').innerHTML = 'Updating';
+		  } else {
+		      document.getElementById('dbstatus').innerHTML = 'Paused';
+		  }
+		
+		
 	});
 	
 }
@@ -68,6 +78,19 @@ function show_database(readingsHolder, readingsCountHolder, readings){
 	
 //	$(destElem).innerHTML(htmlString);
 
+}
 
+//Function used to capture the value of the checkbox to stop the script
+function db_updates()
+{
+  if (document.getElementById('dbupdates').checked) 
+  {
+      document.getElementById('dbstatus').innerHTML = 'Update requested';
+      //We trigger the function 1 time so it can start to get called over and over
+	  setTimeout(triggerAsyncRequests, 2000);
+
+  } else {
+      document.getElementById('dbstatus').innerHTML = 'Pause requested';
+  }
 }
 
