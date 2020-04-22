@@ -7,4 +7,4 @@ class SensorForm(FlaskForm):
     longitude = FloatField('longitude', validators=[DataRequired()])
     datetime = DateTimeField('date Time', validators=[Optional()])
     intensity = IntegerField('intensity', validators=[DataRequired()])
-    submit = SubmitField('submit value')
+    submit = SubmitField('Submit reading')

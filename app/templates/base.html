@@ -1,35 +1,81 @@
-<html>
-<head>
-{% if title %}
-<title>{{ title }} - server_argon</title> {% else %}
-<title>server_argon</title> {% endif %}
+{% extends 'bootstrap/base.html' %} {% block title %} {% if title %}{{
+title }} - server_argon
+</title>
+{% else %}
+<title>server_argon</title>
+{% endif %} {% endblock %} {% block navbar %}
 
-{% block scripts %}
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<nav class="navbar navbar-default navbar-light" style="background-color: #e3f2fd;">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse"
+				data-target="#myNavbar" aria-expanded="false">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="{{ url_for('index') }}">Server
+				Argon</a>
+		</div>
+
+		<div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+				<li><a href="{{ url_for('delete_all_readings') }}">Delete
+						all readings</a></li>
+				<li><a href="{{ url_for('add_five_readings_to_db') }}">Add
+						5 readings to db</a></li>
+				<li><a href="{{ url_for('send_five_readings_mtqq') }}">Send
+						5 readings via MQTT</a></li>
+			</ul>
+
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="{{ url_for('index') }}">Home</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+{% endblock %} {% block content %}
+<!--   <div class="container">
+  		<div class="container">
+			server_argon: <a href="{{ url_for('index')}}">Home</a> <a
+			href="{{ url_for('delete_all_readings')}}">Delete all readings</a> <a
+			href="{{ url_for('add_five_readings_to_db')}}">Add 5 readings to
+			db</a>
+			
+			 <a href="{{ url_for('send_five_readings_mtqq')}}">Send 5
+			readings via MTQQ</a>
+		</div> -->
+
+<hr>
+<!-- 		with is used to catch a complex variable under a simple name  -->
+{% with messages = get_flashed_messages() %} {% if messages %}
+<ul>
+	{% for message in messages %}
+	<li>{{ message }}</li> {% endfor %}
+</ul>
+{% endif %} {% endwith %} {# application content needs to be provided in
+the app_content block #} {% block app_content %}{% endblock %}
+
+</div>
+{% endblock %} {% block scripts %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="/static/js/database.js"></script>
-
+<script type="text/javascript" src="/static/js/dygraphs.js"></script>
+<script type="text/javascript" src="/static/js/dygraphs_original.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>	
 {% endblock %}
 
-</head>
-
-
-<body>
-	<div>
-		server_argon: <a href="{{ url_for('index')}}">Home</a>
-		<a href="{{ url_for('delete_all_readings')}}">Delete all readings</a>
-		<a href="{{ url_for('add_five_readings_to_db')}}">Add 5 readings to db</a>
-		<a href="{{ url_for('send_five_readings_mtqq')}}">Send 5 readings via MTQQ</a>
-	</div>
-	<hr>
-	{% with messages = get_flashed_messages() %} {% if messages %}
-	<ul>
-		{% for message in messages %}
-		<li>{{ message }}</li> {% endfor %}
-	</ul>
-	{% endif %} {% endwith %} 
-	{% block content %}{% endblock %}
-</body>
-</html>
-
-
+{% block styles %}
+{{super()}}
+<link rel="stylesheet"
+      href="{{url_for('.static', filename='mystyle.css')}}">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+{% endblock %}

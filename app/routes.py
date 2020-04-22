@@ -8,6 +8,7 @@ import random
 import json
 import ast
 import time
+from flask_csv import send_csv
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -34,7 +35,7 @@ def delete_all_readings():
     readings = Reading.query.all(); 
     for r in readings:
         db.session.delete(r)
-        db.session.commit()   
+    db.session.commit()   
     return redirect(url_for('index'))
 
 # @mqtt.on_connect()
@@ -113,15 +114,40 @@ def postReadingESP32():
 
 @app.route('/database', methods=['POST'])
 def send_database():
+    readingsCount_js = int(request.form['text']); #We check how many readings does the server have
+    #Query id of last element on database
+    lastReading = Reading.query.order_by(Reading.id.desc()).first() #We pull the last item in the database
+    if lastReading == None:
+        return jsonify({'text': 0}); #We send 0 and we will check on the javascript if 0 was sent from this function     
+    else: #database not empty        
+        readingsCount_db = lastReading.id # update the total count of Readings in the database 
+        #Query newReadings from readingsCount_js to last element in db  
+        newReadings =  Reading.query.order_by(Reading.id.desc()).limit(readingsCount_db-readingsCount_js) #just query the last n
+        newReadings = newReadings [::-1] #all items in the array reversed
+        list=[]
+        for r in newReadings:
+            list.append(r.to_dict())
+        return jsonify({'text' : json.dumps(list)}) #return request
+        
+    
+
+@app.route('/getcsv', methods=['POST'])
+def get_csv():  
+    #get optional arguments, for now just query all elements in db
     readings = Reading.query.all();
     if len(readings)>0 :
-        list=[]
+        #csv_string = "date, intensity\n"
+        csv_string =""
         for r in readings:
-                list.append(r.to_dict())
-        return jsonify({'text' : json.dumps(list)}) #return request
+            csv_string += r.to_csvfields()
+        return jsonify({'csv_file' : csv_string}) #return request 
     #Database empty
     else:
-        return jsonify({'text': 0}); #We check on the javascript if 0 was sent
+        return jsonify({'csv_file': 0}); #We send 0 and we will check on the javascript if 0 was sent from this function
+    
+             
+ 
+    
     
     
 def pretty_print_POST(req):

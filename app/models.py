@@ -51,6 +51,11 @@ class Reading(db.Model):
             d[column.name] = str(getattr(self, column.name))
         return d
     
+    #Used to generate a .csv file with the the date, intensity values as trings
+    def to_csvfields(self):
+        csv_string = self.datetime.strftime('%Y/%m/%d %H:%M:%S') + "," + str(self.intensity) + "\n"
+        return csv_string
+    
     def test(self):
         return 'hello world'
     def __repr__(self):

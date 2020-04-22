@@ -1,57 +1,25 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% import 'bootstrap/wtf.html' as wtf %} {%
+block app_content %}
 
-<html>
-<head>
-{% if title %}
-<title>{{ title }} - server_argon</title> {% else %}
-<title>server Argon</title> {% endif %}
-</head>
-<body>
-	<h1>Record a new value</h1>
-	<form action="" method="post" novalidate>
-		{{ form.hidden_tag() }}
-		<p>
-			<b>{{ form.sensor_id.label }}</b><br> {{
-			form.sensor_id(size=32)}} {% for error in form.sensor_id.errors %} <span
-				style="color: red;">[{{error }}]</span> {% endfor %}
-		</p>
-		<p>
-			<b>{{ form.latitude.label }}</b><br> {{ form.latitude(size=32)}}
-			{% for error in form.latitude.errors %} <span style="color: red;">[{{error
-				}}]</span> {% endfor %}
-		</p>
-		<p>
-			<b>{{ form.longitude.label }}</b><br> {{
-			form.longitude(size=32)}} {% for error in form.longitude.errors %} <span
-				style="color: red;">[{{error }}]</span> {% endfor %}
-		</p>
-		<p>
-			<b>{{ form.datetime.label }}</b><br> {{ form.datetime(size=32)}}
-			{% for error in form.datetime.errors %} <span style="color: red;">[{{error
-				}}]</span> {% endfor %}
-		</p>
-		<p>
-			<b>{{ form.intensity.label }}</b><br> {{
-			form.intensity(size=32)}} {% for error in form.intensity.errors %} <span
-				style="color: red;">[{{error }}]</span> {% endfor %}
-		</p>
-		<p>{{ form.submit() }}</p>
-	</form>
+<div class="container">
+
+	<div id="div_g" style="width: 600px; height: 300px;"></div>
 
 
+	<h3>Submit a new value</h3>
+	<div class="row">
+		<div class="col-md-4">{{ wtf.quick_form(form) }}</div>
+	</div>
 
 	<span id="databaseReadingsButton"> <a
 		href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a>
-	</span>
-	<span id="#counter"> <a
+	</span> <span id="#counter"> <a
 		href="javascript:increaseCounter('#counterValue');"># of calls = </a>
-	</span>
-
-	<span id="#counterValue">0</span>
+	</span> <span id="#counterValue">0</span>
 
 	<p>
 		Database Updates Status: <input type="checkbox" id="dbupdates"
-			name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status</label>
+			name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status?</label>
 	</p>
 
 	<p>Database Readings count:</p>
@@ -65,16 +33,5 @@
 
 
 
-	<!-- 	{% for reading in readings %} -->
-	<!-- 	<div> -->
-	<!-- 		<p> -->
-	<!-- 			<b>id</b>= {{reading.id}} <b>sensor_id</b>= {{reading.sensor_id}} <b>latitude</b>= -->
-	<!-- 			{{reading.latitude}} <b>longitude</b>={{reading.longitude}} <b>datetime</b>= -->
-	<!-- 			{{reading.datetime}} <b>intensity</b>= {{reading.intensity}} -->
-	<!-- 		</p> -->
-	<!-- 	</div> -->
-	<!-- 	{% endfor %} -->
-</body>
-</html>
-
+</div>
 {% endblock %}
