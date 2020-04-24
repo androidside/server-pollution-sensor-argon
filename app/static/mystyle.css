@@ -1,0 +1,14 @@
+.infotext { }
+
+#div_g .dygraph-label { font-family: Georgia, Verdana, serif; }
+
+#div_g .dygraph-title { font-size: 36px; text-shadow: gray 2px 2px 2px; }
+
+#div_g .dygraph-ylabel { font-size: 18px; text-shadow: gray -2px 2px 2px; }
+
+.chart { border: 1px dashed black; margin: 5px 5px 5px 50px; padding: 2px; }
+
+
+#mapid { 
+	height: 400px; 
+}

@@ -1,6 +1,30 @@
 var readingsCount_js;
 var readingsCount_db;
 
+
+//get_database2()
+//To worok with object/data D3 javascript library for data visualization has a parser
+// P5.JS has a loadTable() function that would parse the .csv for you
+//We can also do it with the String.split() function
+
+//const table = data.split('\n).splice(1);
+// To delete the first row of the CSV we can do .splice(1) of the resulting array
+// table.foreach(row => {
+//const columns = row.split(',');
+//  const year = columns[0]
+//  const temperature = columns[1] 
+// console.log(year, temperature);
+//}
+//String. trim would have removed whitespaces from both ends of a string
+
+async function get_dataBase2(){
+	const response = await fetch('/database');
+	const data = await response.text();
+	console.log (data);
+	
+	
+}
+
 function get_database(readingsHolder, readingsCountHolder) {
 //	$(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
 	$.post('/database', {
@@ -19,7 +43,7 @@ function get_database(readingsHolder, readingsCountHolder) {
 	}).fail(function() {
 		$(readingsHolder).text("{{ _('Error: Could not contact server.') }}");
 	}).always(function(){
-//		alert("finished");
+//		alert("finished");// If I use fetch() that's equivalent to a finally call
 		//When we have finished executing the function we set a time to trigger it again
 		//Only if button is checked
 		if (document.getElementById('dbupdates').checked) 
@@ -75,6 +99,8 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 
 		htmlString +="<div><p><b>id</b>= "+newReadings[i].id+" <b>sensor_id</b>= "+newReadings[i].sensor_id+" <b>latitude</b>= "+newReadings[i].latitude+" <b>longitude</b>= "+newReadings[i].longitude+" <b>datetime</b>= "+newReadings[i].datetime+" <b>intensity</b>= "+newReadings[i].intensity+"</p></div>";	
 	}
+	
+	plotDygraphsNewReadings(newReadings);
 
 	readingsCount_db = parseInt(newReadings[newReadings.length -1].id, 10); //Number of reading entries in the database
 
@@ -92,6 +118,8 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 	counter++;
 	textContent = counter.toString();
 	document.getElementById('#counterValue').textContent = textContent;
+	
+
 
 //	$(destElem).innerHTML(htmlString);
 

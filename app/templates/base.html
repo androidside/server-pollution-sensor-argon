@@ -59,18 +59,7 @@ title }} - server_argon
 the app_content block #} {% block app_content %}{% endblock %}
 
 </div>
-{% endblock %} {% block scripts %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-<script type="text/javascript" src="/static/js/database.js"></script>
-<script type="text/javascript" src="/static/js/dygraphs.js"></script>
-<script type="text/javascript" src="/static/js/dygraphs_original.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>	
-{% endblock %}
-
+{% endblock %} 
 {% block styles %}
 {{super()}}
 <link rel="stylesheet"
@@ -78,4 +67,38 @@ the app_content block #} {% block app_content %}{% endblock %}
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
+ <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+   crossorigin=""/>
 {% endblock %}
+
+{% block scripts %}
+
+<!-- OTHER -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- GRAPH -->
+<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>	
+
+<!-- MAP -->
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+   crossorigin=""></script>
+   
+<!-- SERVER_ARGON MUST GO LAST BC DEPENDS ON PREVIOUS SCRIPTS-->
+<script type="text/javascript" src="/static/js/database.js"></script>
+<script type="text/javascript" src="/static/js/dygraphs.js"></script>
+<script type="text/javascript" src="/static/js/dygraphs_original.js"></script>
+<script type="text/javascript" src="/static/js/map.js"></script>
+<script type="text/javascript" src="/static/js/iss.js"></script>
+
+
+{% endblock %}
+
+
