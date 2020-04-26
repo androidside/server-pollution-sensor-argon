@@ -1,19 +1,21 @@
 var readingsCount_js;
 var readingsCount_db;
+var allReadings = [];
+var newReadings = [];
 
 
 //get_database2()
 //To worok with object/data D3 javascript library for data visualization has a parser
-// P5.JS has a loadTable() function that would parse the .csv for you
+//P5.JS has a loadTable() function that would parse the .csv for you
 //We can also do it with the String.split() function
 
 //const table = data.split('\n).splice(1);
-// To delete the first row of the CSV we can do .splice(1) of the resulting array
-// table.foreach(row => {
+//To delete the first row of the CSV we can do .splice(1) of the resulting array
+//table.foreach(row => {
 //const columns = row.split(',');
-//  const year = columns[0]
-//  const temperature = columns[1] 
-// console.log(year, temperature);
+//const year = columns[0]
+//const temperature = columns[1] 
+//console.log(year, temperature);
 //}
 //String. trim would have removed whitespaces from both ends of a string
 
@@ -21,8 +23,8 @@ async function get_dataBase2(){
 	const response = await fetch('/database');
 	const data = await response.text();
 	console.log (data);
-	
-	
+
+
 }
 
 function get_database(readingsHolder, readingsCountHolder) {
@@ -31,8 +33,9 @@ function get_database(readingsHolder, readingsCountHolder) {
 		text: readingsCount_js.toString()
 	}).done(function(response) {
 		if(response['text'] != '0'){
-			var newReadings = JSON.parse(response['text']);
+			newReadings = JSON.parse(response['text']);
 			if(newReadings.length != 0){ //We have updates
+				allReadings = allReadings.concat(newReadings);
 				show_database(readingsHolder, readingsCountHolder, newReadings);
 			}
 		}
@@ -99,8 +102,9 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 
 		htmlString +="<div><p><b>id</b>= "+newReadings[i].id+" <b>sensor_id</b>= "+newReadings[i].sensor_id+" <b>latitude</b>= "+newReadings[i].latitude+" <b>longitude</b>= "+newReadings[i].longitude+" <b>datetime</b>= "+newReadings[i].datetime+" <b>intensity</b>= "+newReadings[i].intensity+"</p></div>";	
 	}
-	
-	plotDygraphsNewReadings(newReadings);
+
+	//plotDygraphsNewReadings(newReadings);
+	//updateChart(newReadings);
 
 	readingsCount_db = parseInt(newReadings[newReadings.length -1].id, 10); //Number of reading entries in the database
 
@@ -109,6 +113,7 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 
 	}else if ((0 < parseInt(readingsCount_db, 10)) && (parseInt(readingsCount_db,10) < parseInt(readingsCount_js,10)) ){ //database was deleted but it got new entries before it sent out readings
 		document.getElementById(readingsHolder).innerHTML = htmlString;
+		allReadings = [];	
 	}
 	readingsCount_js = readingsCount_db;
 	document.getElementById(readingsCountHolder).innerHTML = (readingsCount_js).toString();
@@ -118,7 +123,7 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 	counter++;
 	textContent = counter.toString();
 	document.getElementById('#counterValue').textContent = textContent;
-	
+
 
 
 //	$(destElem).innerHTML(htmlString);

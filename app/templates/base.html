@@ -6,7 +6,8 @@ title }} - server_argon
 {% endif %} {% endblock %} {% block navbar %}
 
 
-<nav class="navbar navbar-default navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar navbar-default bg-dark text-white"
+	style="background-color: #e3f2fd;">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -15,8 +16,10 @@ title }} - server_argon
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ url_for('index') }}">Server
-				Argon</a>
+			<a class="navbar-brand" href="{{ url_for('index') }}">
+			<img src="{{ url_for('static', filename='img/iss200_tiny.png') }}" style="display: inline-block;">
+  			<span style="display: inline-block;">Server Argon</span>
+			</a>
 		</div>
 
 		<div class="collapse navbar-collapse" id="myNavbar">
@@ -37,66 +40,103 @@ title }} - server_argon
 	</div>
 </nav>
 {% endblock %} {% block content %}
-<!--   <div class="container">
-  		<div class="container">
-			server_argon: <a href="{{ url_for('index')}}">Home</a> <a
-			href="{{ url_for('delete_all_readings')}}">Delete all readings</a> <a
-			href="{{ url_for('add_five_readings_to_db')}}">Add 5 readings to
-			db</a>
-			
-			 <a href="{{ url_for('send_five_readings_mtqq')}}">Send 5
-			readings via MTQQ</a>
-		</div> -->
+
+
+<div class="container" >
+
+	<div class="row">
+		<div class="col-md-4 nopadding">
+			<span id="databaseReadingsButton"> <a
+				href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a> #
+				of calls =</span> <span id="#counterValue">0</span>
+		</div>
+		<div class="col-md-4 nopadding">
+			<p>
+				Database Updates Status: <input type="checkbox" id="dbupdates"
+					name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status?</label>
+			</p>
+
+		</div>
+		<div class="col-md-4 nopadding">
+			Database Readings count = <span id="#databaseReadingsCount">0</span>
+		</div>
+	</div>
+</div>
 
 <hr>
-<!-- 		with is used to catch a complex variable under a simple name  -->
-{% with messages = get_flashed_messages() %} {% if messages %}
-<ul>
-	{% for message in messages %}
-	<li>{{ message }}</li> {% endfor %}
-</ul>
-{% endif %} {% endwith %} {# application content needs to be provided in
-the app_content block #} {% block app_content %}{% endblock %}
+<div class="container">
+	<ul class="nav nav-tabs">
+		<li class="active"><a data-toggle="tab" href="#map">Map</a></li>
+		<li><a data-toggle="tab" href="#plots">Plots</a></li>
+		<li><a data-toggle="tab" href="#rawdb">Raw db</a></li>
+
+	</ul>
+
+	<div class="tab-content">
+		<div id="map" class="tab-pane fade in active">{% block
+			map_content %} {% endblock %}</div>
+		<div id="plots" class="tab-pane fade">{% block plots_content %}
+			{% endblock %}</div>
+		<div id="rawdb" class="tab-pane fade">{% block rawdb_content %}
+			{% endblock %}</div>
+	</div>
+</div>
+
+
+
+
+
+
+
 
 </div>
-{% endblock %} 
-{% block styles %}
-{{super()}}
+{% endblock %} {% block styles %} {{super()}}
 <link rel="stylesheet"
-      href="{{url_for('.static', filename='mystyle.css')}}">
+	href="{{url_for('.static', filename='mystyle.css')}}">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" />
- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
-   integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
-   crossorigin=""/>
-{% endblock %}
-
-{% block scripts %}
+<!-- <link rel="stylesheet"
+	href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" /> -->
+<link rel="stylesheet"
+	href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+	crossorigin="" />
+{% endblock %} {% block scripts %}
 
 <!-- OTHER -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+<!-- MOMENT.JS -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
 
 <!-- GRAPH -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script>	
+<!-- <script -->
+	<!-- src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+	
 
 <!-- MAP -->
- <!-- Make sure you put this AFTER Leaflet's CSS -->
- <!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
-   integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
-   crossorigin=""></script>
-   
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+	crossorigin=""></script>
+
 <!-- SERVER_ARGON MUST GO LAST BC DEPENDS ON PREVIOUS SCRIPTS-->
 <script type="text/javascript" src="/static/js/database.js"></script>
-<script type="text/javascript" src="/static/js/dygraphs.js"></script>
-<script type="text/javascript" src="/static/js/dygraphs_original.js"></script>
 <script type="text/javascript" src="/static/js/map.js"></script>
 <script type="text/javascript" src="/static/js/iss.js"></script>
+<script type="text/javascript" src="/static/js/iss.js"></script>
+<script type="text/javascript" src="/static/js/chart.js"></script>
 
 
 {% endblock %}

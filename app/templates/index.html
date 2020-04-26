@@ -1,36 +1,22 @@
 {% extends "base.html" %} {% import 'bootstrap/wtf.html' as wtf %} {%
-block app_content %}
+block map_content %}
 
-<div class="container">
+<div id="mapid"></div>
 
-	<div id="div_g" style="width: 700px; height: 400px;"></div>
-	
-	<div id="mapid"></div>
+{% endblock %} {%block plots_content %}
+
+<!-- <div id="div_g" style="width: 700px; height: 400px;"></div> -->
+
+<canvas id="myChart"></canvas>
 
 
-	<h3>Submit a new value</h3>
-	<div class="row">
-		<div class="col-md-4">{{ wtf.quick_form(form) }}</div>
-	</div>
+{% endblock %} {%block rawdb_content %}
 
-	<span id="databaseReadingsButton"> <a
-		href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a>
-	</span> <span id="#counter"> <a
-		href="javascript:increaseCounter('#counterValue');"># of calls = </a>
-	</span> <span id="#counterValue">0</span>
-
-	<p>
-		Database Updates Status: <input type="checkbox" id="dbupdates"
-			name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status?</label>
-	</p>
-
-	<p>Database Readings count:</p>
-
-	<span id="#databaseReadingsCount">0</span>
-
-	<div>
-		<span id="#databaseReadingsText"> Result goes here </span>
-	</div>
-
+<h3>Submit a new value</h3>
+<div class="row">
+	<div class="col-md-4">{{ wtf.quick_form(form) }}</div>
+</div>
+<div>
+	<span id="#databaseReadingsText"> Result goes here </span>
 </div>
 {% endblock %}
