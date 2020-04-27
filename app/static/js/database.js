@@ -100,11 +100,10 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 
 	for (var i = 0; i < newReadings.length; i++) {
 
-		htmlString +="<div><p><b>id</b>= "+newReadings[i].id+" <b>sensor_id</b>= "+newReadings[i].sensor_id+" <b>latitude</b>= "+newReadings[i].latitude+" <b>longitude</b>= "+newReadings[i].longitude+" <b>datetime</b>= "+newReadings[i].datetime+" <b>intensity</b>= "+newReadings[i].intensity+"</p></div>";	
+		//string with paragraphs
+		//htmlString +="<div><p><b>id</b>= "+newReadings[i].id+" <b>sensor_id</b>= "+newReadings[i].sensor_id+" <b>latitude</b>= "+newReadings[i].latitude+" <b>longitude</b>= "+newReadings[i].longitude+" <b>datetime</b>= "+newReadings[i].datetime+" <b>intensity</b>= "+newReadings[i].intensity+"</p></div>";
+		htmlString +="<tr><td><b>id</b> = "+newReadings[i].id+"</td><td><b>sensor_id</b> = "+newReadings[i].sensor_id+"</td><td><b>latitude</b> = "+newReadings[i].latitude+"</td><td><b>longitude</b> = "+newReadings[i].longitude+"</td><td><b>datetime</b> = "+newReadings[i].datetime+"</td><td><b>intensity</b> = "+newReadings[i].intensity+"</td></tr>";
 	}
-
-	//plotDygraphsNewReadings(newReadings);
-	//updateChart(newReadings);
 
 	readingsCount_db = parseInt(newReadings[newReadings.length -1].id, 10); //Number of reading entries in the database
 

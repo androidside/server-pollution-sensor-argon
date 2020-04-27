@@ -4,9 +4,10 @@ block map_content %}
 <div id="mapid"></div>
 <p>
 	<button id="locateISS" class="w3-button w3-black">Locate ISS</button>
-	<button id="gotoPontiac" class="w3-button w3-black">Go to Pontiac</button>
-	
-	
+	<button id="gotoPontiac" class="w3-button w3-black">Go to
+		Pontiac</button>
+
+
 </p>
 
 {% endblock %} {%block plots_content %}
@@ -20,8 +21,9 @@ block map_content %}
 <p>
 	<button id="sendEmail" class="w3-button w3-black">Send Email</button>
 	<button id="sendSMS" class="w3-button w3-black">Send SMS</button>
-	<button id="downloadData" class="w3-button w3-black">Download Data</button>
-	
+	<button id="downloadData" class="w3-button w3-black">Download
+		Data</button>
+
 </p>
 
 
@@ -31,7 +33,22 @@ block map_content %}
 <div class="row">
 	<div class="col-md-4">{{ wtf.quick_form(form) }}</div>
 </div>
+<p></p>
 <div>
-	<span id="#databaseReadingsText"> Result goes here </span>
+	<table id="table_raw_readings">
+		<thead>
+			<tr>
+				<th>id</th>
+				<th>sensor_id</th>
+				<th>latitude</th>
+				<th>longitude</th>
+				<th>datetime</th>
+				<th>intensity</th>
+			</tr>
+		</thead>
+		<tbody id="#databaseReadingsText"></tbody>
+		<!-- 	<span id="#databaseReadingsText"></span> -->
+	</table>
+
 </div>
 {% endblock %}

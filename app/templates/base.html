@@ -5,9 +5,7 @@ title }} - server_argon
 <title>server_argon</title>
 {% endif %} {% endblock %} {% block navbar %}
 
-
-<nav class="navbar navbar-default bg-dark text-white"
-	style="background-color: #e3f2fd;">
+<nav class="navbar navbar-default navbar-light" style="background-color: #e3f2fd;"> <!--  -->
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -97,8 +95,6 @@ title }} - server_argon
 </div>
 {% endblock %} {% block styles %} {{super()}}
 <link rel="stylesheet"
-	href="{{url_for('.static', filename='mystyle.css')}}">
-<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <!-- <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" /> -->
@@ -106,6 +102,8 @@ title }} - server_argon
 	href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	crossorigin="" />
+<link rel="stylesheet"
+	href="{{url_for('.static', filename='mystyle.css')}}">
 
 <!-- W3 BUTTONS -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
