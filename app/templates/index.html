@@ -2,12 +2,27 @@
 block map_content %}
 
 <div id="mapid"></div>
+<p>
+	<button id="locateISS" class="w3-button w3-black">Locate ISS</button>
+	<button id="gotoPontiac" class="w3-button w3-black">Go to Pontiac</button>
+	
+	
+</p>
 
 {% endblock %} {%block plots_content %}
 
 <!-- <div id="div_g" style="width: 700px; height: 400px;"></div> -->
 
-<canvas id="myChart"></canvas>
+<!-- <canvas id="myChart"></canvas> -->
+<div>
+	<canvas id="myChart"></canvas>
+</div>
+<p>
+	<button id="sendEmail" class="w3-button w3-black">Send Email</button>
+	<button id="sendSMS" class="w3-button w3-black">Send SMS</button>
+	<button id="downloadData" class="w3-button w3-black">Download Data</button>
+	
+</p>
 
 
 {% endblock %} {%block rawdb_content %}

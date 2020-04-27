@@ -1,4 +1,4 @@
-.infotext { }
+/* .infotext { }
 
 #div_g .dygraph-label { font-family: Georgia, Verdana, serif; }
 
@@ -6,9 +6,78 @@
 
 #div_g .dygraph-ylabel { font-size: 18px; text-shadow: gray -2px 2px 2px; }
 
-.chart { border: 1px dashed black; margin: 5px 5px 5px 50px; padding: 2px; }
-
+.chart { border: 1px dashed black; margin: 5px 5px 5px 50px; padding: 2px; } */
 
 #mapid { 
-	height: 400px; 
+	height: 500px; 
+}
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+
+
+
+/*
+ *	Buttons
+ *  --------------------------------------------------------- */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.428571429;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 0;
+}
+.btn-sm,
+.btn-group-sm > .btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.btn-theme {
+  color: #fff;
+  background-color: transparent;
+  border-color: #fff;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  transition: all 500ms ease;
+}
+.btn-theme:hover,
+.btn-theme .active {
+  color: #000;
+  background-color: #fff;
+}
+.btn-theme-inverse {
+  color: #363636;
+  border-color: #363636;
+  -webkit-transition: all 500ms ease;
+  -moz-transition: all 500ms ease;
+  -ms-transition: all 500ms ease;
+  transition: all 500ms ease;
+  background: transparent;
+}
+.btn-theme-inverse:hover {
+  color: #fff;
+  background-color: #363636;
 }

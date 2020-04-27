@@ -5,6 +5,9 @@ const ISSmarker = L.marker([0, 0], {icon: L.icon({
 	iconAnchor: [25, 16]
 })}).addTo(map);
 
+var lastKnownISSLatitude = 0;
+var lastKnownISSLongitude = 0;
+
 async function getISS(){
 
 	//const ISSPopup = L.popup().setContent('no info yet').addTo(map)
@@ -16,6 +19,8 @@ async function getISS(){
 //	console.log(latitude);
 //	console.log(longitude);	
 	ISSmarker.setLatLng([latitude, longitude]);
+	lastKnownISSLatitude = latitude;
+	lastKnownISSLongitude = longitude;	
 
 	ISSmarker.bindPopup("<b>Speed ISS:</b><br>"+velocity.toFixed(2)+" Km/h");
 	setTimeout(getISS, 5000);
@@ -24,6 +29,10 @@ async function getISS(){
 }
 
 getISS();
+
+document.getElementById('locateISS').addEventListener('click', function() {
+	map.setView([lastKnownISSLatitude, lastKnownISSLongitude], 6);
+});
 
 
 

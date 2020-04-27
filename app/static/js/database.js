@@ -78,10 +78,10 @@ function triggerAsyncRequests(){
 }
 
 //When the page loads we start all the async request functions, which will happen every X seconds
-window.onload = function() {
-	readingsCount_js = parseInt("0",10) //We will request all Readings from the database 
-	setTimeout(triggerAsyncRequests, 2000);
-};
+//window.onload = function() {
+readingsCount_js = parseInt("0",10) //We will request all Readings from the database 
+setTimeout(triggerAsyncRequests, 2000);
+//};
 
 
 

@@ -16,9 +16,10 @@ title }} - server_argon
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="{{ url_for('index') }}">
-			<img src="{{ url_for('static', filename='img/iss200_tiny.png') }}" style="display: inline-block;">
-  			<span style="display: inline-block;">Server Argon</span>
+			<a class="navbar-brand" href="{{ url_for('index') }}"> <img
+				src="{{ url_for('static', filename='img/iss200_tiny.png') }}"
+				style="display: inline-block;"> <span
+				style="display: inline-block;">Server Argon</span>
 			</a>
 		</div>
 
@@ -42,20 +43,24 @@ title }} - server_argon
 {% endblock %} {% block content %}
 
 
-<div class="container" >
-
+<div class="container">
+<!-- Pretty Check boxes https://lokesh-coder.github.io/pretty-checkbox/#installation -->
 	<div class="row">
 		<div class="col-md-4 nopadding">
 			<span id="databaseReadingsButton"> <a
-				href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a> #
-				of calls =</span> <span id="#counterValue">0</span>
+				href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a>
+				# of calls =
+			</span> <span id="#counterValue">0</span>
 		</div>
 		<div class="col-md-4 nopadding">
-			<p>
-				Database Updates Status: <input type="checkbox" id="dbupdates"
-					name="dbcheckbox" onclick="db_updates();" /> <label id="dbstatus">Status?</label>
-			</p>
-
+			Database Updating?:
+			<div class="pretty p-switch p-fill">
+				<input type="checkbox" id="dbupdates" name="dbcheckbox"
+					onclick="db_updates();" />
+				<div class="state p-success">
+					<label id="dbstatus">Status?</label>
+				</div>
+			</div>
 		</div>
 		<div class="col-md-4 nopadding">
 			Database Readings count = <span id="#databaseReadingsCount">0</span>
@@ -101,6 +106,18 @@ title }} - server_argon
 	href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	crossorigin="" />
+
+<!-- W3 BUTTONS -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
+<!-- PRETTY CHECKBOXES -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/pretty-checkbox/3.0.0/pretty-checkbox.min.css" />
+
+
 {% endblock %} {% block scripts %}
 
 <!-- OTHER -->
@@ -118,11 +135,22 @@ title }} - server_argon
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
-<!-- GRAPH -->
+<!-- CHART.JS -->
 <!-- <script -->
-	<!-- src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script> -->
-	<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-	
+<!-- src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<!-- CHART.JS STREAMING PLUGIN -->
+<script
+	src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
+<script
+	src="https://unpkg.com/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
+<!-- CHART.JS DATALABELS AUTOREGISTRATES https://chartjs-plugin-datalabels.netlify.app/guide/ -->
+<!-- <script
+	src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script> -->
+<!-- CHART.JS Color Schemes -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-colorschemes"></script>
+<script src="https://unpkg.com/chartjs-plugin-colorschemes"></script> -->
+
 
 <!-- MAP -->
 <!-- Make sure you put this AFTER Leaflet's CSS -->
