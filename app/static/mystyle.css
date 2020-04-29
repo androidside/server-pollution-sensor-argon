@@ -8,7 +8,7 @@
 
 .chart { border: 1px dashed black; margin: 5px 5px 5px 50px; padding: 2px; } */
 #mapid {
-	height: 500px;
+	height: 600px;
 }
 
 .navbar .navbar-nav {
@@ -25,13 +25,19 @@
 /* .navbar-default {
 	background-color: lightgreen; 
 }*/
-
 .navbar-default {
-/*     background-color: #FFFFFF; */
-
+	/*     background-color: #FFFFFF; */
+	
 }
 
 
+/* MAP RELATED */
+.text-labels {
+	font-size: 2em;
+	font-weight: 700;
+	color: black;
+	/* Use color, background, set margins for offset, etc */
+}
 
 /*
  *	Table
