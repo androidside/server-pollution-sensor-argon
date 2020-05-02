@@ -5,44 +5,44 @@ title }} - server_argon
 <title>server_argon</title>
 {% endif %} {% endblock %} {% block navbar %}
 
-<nav class="navbar navbar-default navbar-light" style="background-color: #e3f2fd;"> <!--  -->
-	<div class="container-fluid">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse"
-				data-target="#myNavbar" aria-expanded="false">
-				<span class="sr-only">Toggle navigation</span> <span
-					class="icon-bar"></span> <span class="icon-bar"></span> <span
-					class="icon-bar"></span>
-			</button>
-			<a class="navbar-brand" href="{{ url_for('index') }}"> <img
-				src="{{ url_for('static', filename='img/iss200_tiny.png') }}"
-				style="display: inline-block;"> <span
-				style="display: inline-block;">Server Argon</span>
-			</a>
-		</div>
 
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container">
+		<!-- Toggle version -->
+		<a class="navbar-brand" href="{{ url_for('index') }}"> <img
+			src="{{ url_for('static', filename='img/iss200_tiny.png') }}"
+			style="display: inline-block;"> <span
+			style="display: inline-block;">Server Argon</span>
+		</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#myNavbar" aria-controls="navbarSupportedContent"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		<!-- Desktop version -->
 		<div class="collapse navbar-collapse" id="myNavbar">
 			<ul class="nav navbar-nav">
 				<li><a href="{{ url_for('index') }}">Home</a></li>
-				<li><a href="{{ url_for('delete_all_readings') }}">Delete
-						all readings</a></li>
-				<li><a href="{{ url_for('add_five_readings_to_db') }}">Add
-						5 readings to db</a></li>
-				<li><a href="{{ url_for('send_five_readings_mtqq') }}">Send
-						5 readings via MQTT</a></li>
-			</ul>
-
-			<ul class="nav navbar-nav navbar-right">
-				<li><a href="{{ url_for('index') }}">Home</a></li>
+				<li><a href="javascript:deleteDatabase();">Delete database
+						entries</a></li>
+				<li><a href="javascript:add5readings();">Add 5 readings to
+						db</a></li>
+				<li><a href="javascript:add5readingsMQTT();">Send 5
+						readings via MQTT</a></li>
 			</ul>
 		</div>
 	</div>
+
 </nav>
+
 {% endblock %} {% block content %}
 
 
 <div class="container">
-<!-- Pretty Check boxes https://lokesh-coder.github.io/pretty-checkbox/#installation -->
+	<!-- Pretty Check boxes https://lokesh-coder.github.io/pretty-checkbox/#installation -->
 	<div class="row">
 		<div class="col-md-4 nopadding">
 			<span id="databaseReadingsButton"> <a
@@ -70,7 +70,7 @@ title }} - server_argon
 <div class="container">
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#map">Map</a></li>
-		<li><a data-toggle="tab" href="#plots">Plots</a></li>
+		<li><a data-toggle="tab" href="#plots">Background</a></li>
 		<li><a data-toggle="tab" href="#rawdb">Raw db</a></li>
 
 	</ul>
@@ -94,22 +94,49 @@ title }} - server_argon
 
 </div>
 {% endblock %} {% block styles %} {{super()}}
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+<!--------------------->
+<!-- BOOTSTRAP 3 CSS -->
+<!--------------------->
+
 <!-- <link rel="stylesheet"
-	href="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.css" /> -->
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+
+<!--------------------->
+<!-- BOOTSTRAP 4 CSS -->
+<!--------------------->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+
+
+<!------------->
+<!-- Leaflet -->
+<!------------->
+
 <link rel="stylesheet"
 	href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
 	integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
 	crossorigin="" />
+
+<!----------------->
+<!-- mystyle.css -->
+<!----------------->
+
 <link rel="stylesheet"
 	href="{{url_for('.static', filename='mystyle.css')}}">
 
-<!-- W3 BUTTONS -->
+<!---------------->
+<!-- W3 Buttons -->
+<!---------------->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 
-<!-- PRETTY CHECKBOXES -->
+<!----------------------->
+<!-- Pretty Checkboxes -->
+<!----------------------->
+
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css" />
 <link rel="stylesheet"
@@ -118,26 +145,57 @@ title }} - server_argon
 
 {% endblock %} {% block scripts %}
 
-<!-- OTHER -->
+<!--************-->
+<!-- JQUERY 3.4 -->
+<!--************-->
+
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 
-<!-- MOMENT.JS -->
+<!--************************-->
+<!-- BOOTSTRAP 3 JAVASCRIPT -->
+<!--************************-->
+
+<!-- <script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
+
+
+<!--***********************************************************-->
+<!-- BOOTSTRAP 4 JAVASCRIPT + Dependencies: JQUERY SLIM & POPPER.JS -->
+<!--(we need ajax so I comment it and use JQUERY 3.4 min instead)-->
+<!--***********************************************************-->
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> -->
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+	crossorigin="anonymous"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	crossorigin="anonymous"></script>
+
+
+<!--***********-->
+<!-- Moment JS -->
+<!--***********-->
+
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
 <script
 	src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
-<!-- CHART.JS -->
-<!-- <script -->
-<!-- src="//cdnjs.cloudflare.com/ajax/libs/dygraph/2.1.0/dygraph.min.js"></script> -->
+<!--**********-->
+<!-- Chart JS -->
+<!--**********-->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<!-- CHART.JS STREAMING PLUGIN -->
+
+<!--***************************-->
+<!-- Chart JS Streaming Plugin -->
+<!--***************************-->
 <script
 	src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@latest/dist/chartjs-plugin-streaming.min.js"></script>
 <script
@@ -150,20 +208,31 @@ title }} - server_argon
 <script src="https://unpkg.com/chartjs-plugin-colorschemes"></script> -->
 
 
-<!-- MAP -->
+<!--*************-->
+<!-- MAP Leaflet -->
+<!--*************-->
+
 <!-- Make sure you put this AFTER Leaflet's CSS -->
 <!-- Make sure you put this AFTER Leaflet's CSS -->
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
 	integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
 	crossorigin=""></script>
 
-<!-- SERVER_ARGON MUST GO LAST BC DEPENDS ON PREVIOUS SCRIPTS-->
+
+<!--**********************************************************-->
+<!-- SERVER_ARGON MUST GO LAST BC DEPENDS ON PREVIOUS SCRIPTS -->
+<!--**********************************************************-->
+
+
 <script type="text/javascript" src="/static/js/database.js"></script>
 <script type="text/javascript" src="/static/js/geojson.js"></script>
 <script type="text/javascript" src="/static/js/map.js"></script>
 <script type="text/javascript" src="/static/js/iss.js"></script>
 <script type="text/javascript" src="/static/js/iss.js"></script>
+<script type="text/javascript" src="/static/js/chart_configs_onRefresh.js"></script>
 <script type="text/javascript" src="/static/js/chart.js"></script>
+
+
 
 
 {% endblock %}

@@ -8,26 +8,62 @@ block map_content %}
 		Pontiac</button>
 
 
-</p>
+<div class="row justify-content-center">
+	<div class="col-md-12 nopadding">
+		<canvas id="chartLive_pontiac"></canvas>
+	</div>
+</div>
+
+<div class="row justify-content-center">
+	<div id="slidecontainer" class="col-md-8">
+		<input type="range" min="0" max="5" value="5" class="slider"
+			id="duration_pontiac">
+		<div class="sliderticks">
+			<p>-5h</p>
+			<p>-4h</p>
+			<p>-3h</p>
+			<p>-2h</p>
+			<p>-1h</p>
+			<p>Live</p>
+		</div>
+
+		<!-- 	<p>
+			Value: <span id="demo"></span>
+		</p>
+
+		<span class="label-slider">Duration:</span> <span id="durationValue"
+			class="value-slider">20000</span> <span><input type="range"
+			min="1000" max="60000" step="100" value="20000" id="duration"
+			class="control-slider"></span> -->
+	</div>
+</div>
+
+
+
+<div class="row justify-content-center mt-4">
+	<!--  mt-2 is used for margin top  https://v4-alpha.getbootstrap.com/utilities/spacing/-->
+	<div class="col-md-offset-2 col-md-8">
+		<button id="livedata" class="w3-button w3-black">Live data</button>
+		<button id="lasthourdata" class="w3-button w3-black">Last
+			hour</button>
+		<button id="sendEmail" class="w3-button w3-black">Send Email</button>
+		<button id="sendSMS" class="w3-button w3-black">Send SMS</button>
+		<button id="downloadData" class="w3-button w3-black">Download
+			Data</button>
+
+	</div>
+</div>
+
+
+
+
+
 
 {% endblock %} {%block plots_content %}
 
-<!-- <div id="div_g" style="width: 700px; height: 400px;"></div> -->
 
-<!-- <canvas id="myChart"></canvas> -->
-<div>
-	<canvas id="myChart"></canvas>
-</div>
-<p>
-	<button id="livedata" class="w3-button w3-black">Live data</button>
-	<button id="lasthourdata" class="w3-button w3-black">Last hour</button>
-	<button id="lastdaydata" class="w3-button w3-black">Last day</button>
-	<button id="sendEmail" class="w3-button w3-black">Send Email</button>
-	<button id="sendSMS" class="w3-button w3-black">Send SMS</button>
-	<button id="downloadData" class="w3-button w3-black">Download
-		Data</button>
 
-</p>
+
 
 
 {% endblock %} {%block rawdb_content %}

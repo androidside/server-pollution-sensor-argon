@@ -2,26 +2,24 @@
 
 var lastNPoints = 30;
 
-var newReadings_intensity = []
-var newReadings_date = []
-var prev_newReadings = []
+
 
 
 //function initializeChart(){
 
-////We assign the elements of newReading object to separate arrays for intensity and datetime
+//////We assign the elements of newReading object to separate arrays for intensity and datetime
 //newReadings.forEach(function(item){
 //newReadings_intensity.push(item.intensity);
 //newReadings_date.push(moment(item.datetime.slice(0,-4))); // we delete the last 4 milisecond numbers, from YYYY-MM-DD HH:mm:ss:SSSSSS to YYYY-MM-DD HH:mm:ss:SS and convert it to moment object
 //});
 
-//var ctx = document.getElementById('myChart').getContext('2d');
+//var ctx_config_chartHourPontiac = document.getElementById('chartHourPontiac').getContext('2d');
 
 //newReadings_date = newReadings_date.slice(-lastNPoints)
 
 //newReadings_intensity = newReadings_intensity.slice(-lastNPoints);
 
-//var config = {
+//var config_chartHourPontiac = {
 ////The type of chart we want to create
 //type: 'line',
 
@@ -55,13 +53,13 @@ var prev_newReadings = []
 //}
 //};
 
-//chart = new Chart(ctx, config); 
-//setInterval(updateChart,500);
+//chartHour_pontiac = new Chart(ctx_config_chartHourPontiac,config_chartHourPontiac); 
+//setInterval(updateChart,1000);
 
 //}
 
 //initializeChart();
-
+//console.log("Chart initialized");
 
 //function updateChart(){
 
@@ -85,8 +83,8 @@ var prev_newReadings = []
 //chart.data.datasets[0].data = chart.data.datasets[0].data.slice(-lastNPoints);
 
 
-////chart.data.datasets[0].data= chart.data.datasets[0].data.slice(-lastNPoints)
-////chart.data.labels= chart.data.labels.slice(-lastNPoints)
+//chart.data.datasets[0].data= chart.data.datasets[0].data.slice(-lastNPoints)
+//chart.data.labels= chart.data.labels.slice(-lastNPoints)
 
 //chart.update();
 //prev_newReadings =  newReadings;
@@ -99,143 +97,71 @@ var prev_newReadings = []
 //chart.data.datasets[0].data.push(last_newReadings_intensity);
 //chart.data.labels.push(last_newReadings_date);
 //chart.update();
-////console.log("No new readings");
+//console.log("No new readings");
 //}
 
-////}
-//////after
+//}
 
 
 
 
-var ahora = Date.now();
 
-var chartColors = {
-		red: 'rgb(255, 99, 132)',
-		orange: 'rgb(255, 159, 64)',
-		yellow: 'rgb(255, 205, 86)',
-		green: 'rgb(75, 192, 192)',
-		blue: 'rgb(54, 162, 235)',
-		purple: 'rgb(153, 102, 255)',
-		grey: 'rgb(201, 203, 207)'
-};
+//var ahora = Date.now();
+
+
 
 function randomScalingFactor() {
 	return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
 }
 
-function onRefresh(chart) {
 
-	var array = [1,2,3,4,5,6,7,8,9,10];
-
-	//If we have new readings we add them to the dataset
-	if( (newReadings.length > 0) && (JSON.stringify(newReadings) != JSON.stringify(prev_newReadings))){	
-
-		////We assign the elements of newReading object to separate arrays for intensity and datetime
-		newReadings.forEach(function(item){
-			newReadings_intensity.push(item.intensity);
-			newReadings_date.push(1000 * moment(item.datetime.slice(0,-4)).unix()); // we delete the last 4 milisecond numbers, from YYYY-MM-DD HH:mm:ss:SSSSSS to YYYY-MM-DD HH:mm:ss:SS and convert it to moment object
-			//.unix() returns time in seconds since 1970, we need in ms!
-		});
-
-		chart.config.data.datasets.forEach(function(dataset) {
-			for (var i = 0; i < newReadings_intensity.length; i++) {
-				dataset.data.push({
-					x: newReadings_date[i],
-					y: newReadings_intensity[i]
-				});
-			}		
-		});
-
-		newReadings_intensity = [];
-		newReadings_date = [];		
-		prev_newReadings =  newReadings;
-	}
-}
-
-var color = Chart.helpers.color;
-var config = {
-		type: 'line',
-		data: {
-			datasets: [{
-				label: 'Pollution (linear interpolation)',
-				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-				borderColor: chartColors.red,
-				fill: false,
-				lineTension: 0,
-				borderDash: [8, 4],
-				data: []
-			}, {
-				label: 'Pollution (cubic interpolation)',
-				backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
-				borderColor: chartColors.blue,
-				fill: false,
-				cubicInterpolationMode: 'monotone',
-				data: []
-			}]
-		},
-		options: {
-			title: {
-				display: true,
-				text: 'Pontiac Street',
-				fontSize: 36,				
-				position: 'top',
-			},
-			scales: {
-				xAxes: [{
-					type: 'realtime',
-					realtime: {
-						duration: 50000,
-						refresh: 1000,
-						delay: -(14400000 - 20000),
-						onRefresh: onRefresh
-					},
-					scaleLabel: {
-						display: true,
-						labelString: 'Time un UTC',
-						fontSize: 32,
-					}
-				}],
-				yAxes: [{
-					scaleLabel: {
-						display: true,
-						labelString: 'NO2 Pollution Level',
-						fontSize: 32,	
-					}
-				}]
-			},
-			tooltips: {
-				mode: 'nearest',
-				intersect: false
-			},
-			hover: {
-				mode: 'nearest',
-				intersect: false
-			},
-			legend: {
-				display: true,
-				labels: {
-					fontSize: 16,
-					fontStyle: 'bold',
-					align: 'center',
-				}
-			},
-			plugins: {
-				streaming: {
-					frameRate: 15
-				}
-//			colorschemes:{
-//			scheme: 'brewer.Paired12',
-//			override: true,
-//			}
-			}
-		}
-};
 
 window.onload = function() {
-	var ctx = document.getElementById('myChart').getContext('2d');
-	window.myChart = new Chart(ctx, config);
+	var ctx = document.getElementById('chartLive_pontiac').getContext('2d');
+	window.chartLive_pontiac = new Chart(ctx, config_pontiac);
+
 };
+
+//Variable to determine if we are using Internet Explorer
+var isIE = navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.indexOf('Trident') !== -1;
+
+
+document.getElementById('duration_pontiac').addEventListener(isIE ? 'change' : 'input', function() {
+	let duration = 0;
+	let delay = 0;
+	if (+this.value == 5){
+		duration = 50000; //We default to 50 seconds
+	}
+	else{//4 -> 1hour ...  3-> 2hours ... 2-> 3hour ... 1--> 4hours  ... 0-> 5hours
+		duration = (5 - this.value) * 3600 * 1000 // #hours * milliseconds
+	}
+	config_pontiac.options.scales.xAxes[0].realtime.duration = duration;
+	config_pontiac.options.scales.xAxes[0].realtime.delay = delay;
+	
+	window.chartLive_pontiac.update({duration: 0});
+});
+
+document.getElementById('livedata').addEventListener('click', function() {
+	//Change duration here
+	config_pontiac.options.scales.xAxes[0].realtime.duration = 50000; //We default to 50 seconds
+	config_pontiac.options.scales.xAxes[0].realtime.delay = 0;
+	window.chartLive_pontiac.update({duration: 0});
+
+	document.getElementById('duration_pontiac').value = '5';
+});
+
+document.getElementById('lasthourdata').addEventListener('click', function() {
+//	Change duration here
+	config_pontiac.options.scales.xAxes[0].realtime.duration = 3600000;
+	window.chartLive_pontiac.update({duration: 0});
+	document.getElementById('duration_pontiac').value = '4';
+});
+
+/*document.getElementById('lastdaydata').addEventListener('click', function() {
+	//Change duration here
+	config.options.scales.xAxes[0].realtime.duration = 86400000;
+	window.chartLive_pontiac.update({duration: 0});
+});*/
 
 document.getElementById('sendEmail').addEventListener('click', function() {
 	alert("Will send you an email someday");

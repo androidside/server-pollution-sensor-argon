@@ -16,10 +16,10 @@ from flask_csv import send_csv
 def index():
     form = SensorForm()
 #     if request.method == 'GET':
-#         form.datetime.data = datetime.utcnow()
+#         form.datetime.data = datetime.now()
     if form.validate_on_submit():
         reading = Reading(sensor_id=form.sensor_id.data, latitude=form.latitude.data,
-                          longitude=form.longitude.data, datetime=datetime.utcnow(), intensity=form.intensity.data)
+                          longitude=form.longitude.data, datetime=datetime.now(), intensity=form.intensity.data)
         db.session.add(reading)
         db.session.commit()
 #       flash('Input submitted for sensor with id {}, latitude={}, longitude={}, datetime={}, intensity={}'.format(
@@ -30,13 +30,13 @@ def index():
     readings = Reading.query.all(); 
     return render_template('index.html', title='Home', readings=readings, form=form)
 
-@app.route('/delete_all_readings', methods=['GET'])
+@app.route('/delete_all_readings', methods=['GET', 'POST'])
 def delete_all_readings():
     readings = Reading.query.all(); 
     for r in readings:
         db.session.delete(r)
     db.session.commit()   
-    return redirect(url_for('index'))
+    return jsonify({'text' : 1}), 200;
 
 # @mqtt.on_connect()
 # def handle_connect(client, userdata, flags, rc):
@@ -52,40 +52,41 @@ def handle_mqtt_message(client, userdata, message):
     payload='{'+message.payload.decode()+'}'
     dictionary = ast.literal_eval(payload)
     #convert to a dictionary
-    reading.from_dict_mtqq(dictionary)
+    reading.from_dict_mqtt(dictionary)
     db.session.add(reading)
     db.session.commit()
     return redirect(url_for('index'))
     
     
-@app.route('/send_five_readings_mtqq', methods=['GET'])
-def send_five_readings_mtqq():
+@app.route('/send_five_readings_mqtt', methods=['GET', 'POST'])
+def send_five_readings_mqtt():
     for i in range(5):
-        datetimeraw=datetime.utcnow()
+        datetimeraw=datetime.now()
 #         datetimeclean=datetime.strftime(datetimeraw, '%Y-%#m-%#d')
 #         datetimeclean=datetime.strftime(datetimeraw, '%Y-%m-%d %H:%M:%S.%f')
-#         datetimeobject=datetime.utcnow().strftime('%#Y-%#m-%#d %#H:%#M:%#S.%#f')
+#         datetimeobject=datetime.now().strftime('%#Y-%#m-%#d %#H:%#M:%#S.%#f')
         reading = Reading(sensor_id= random.randint(1,11),
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
-                          datetime=datetime.utcnow(),
+                          datetime=datetime.now(),
                           intensity=random.randint(1,101))
-        #jsontosend=json.dumps(reading.format_mtqq_message(), indent=4, sort_keys=True, default=str)
-        message=reading.format_mtqq_message()
+        #jsontosend=json.dumps(reading.format_mqtt_message(), indent=4, sort_keys=True, default=str)
+        message=reading.format_mqtt_message()
         mqtt.publish('home/mytopic', message)
-    return redirect(url_for('index'))
+    return jsonify({'text' : 1}), 200;
 
-@app.route('/add_five_readings_to_db', methods=['GET'])
+@app.route('/add_five_readings_to_db', methods=['GET', 'POST'])
 def add_five_readings_to_db():
     for i in range(5):
         reading = Reading(sensor_id= random.randint(1,11),
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
-                          datetime=datetime.utcnow(),
+                          datetime=datetime.now(),
                           intensity=random.randint(1,101))
         db.session.add(reading)
     db.session.commit()
-    return redirect(url_for('index'))
+    #return redirect(url_for('index'))
+    return jsonify({'text' : 1}), 200;
 
 @app.route('/add_reading', methods=['POST'])
 def add_reading(): 

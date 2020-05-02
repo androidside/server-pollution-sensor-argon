@@ -42,6 +42,7 @@ function get_database(readingsHolder, readingsCountHolder) {
 		else{
 			//Database Empty
 			document.getElementById(readingsHolder).innerHTML = "";
+			document.getElementById('#databaseReadingsCount').innerHTML = '0';
 		}
 	}).fail(function() {
 		$(readingsHolder).text("{{ _('Error: Could not contact server.') }}");
@@ -143,3 +144,49 @@ function db_updates()
 	}
 }
 
+
+function add5readings(){
+	$.post('/add_five_readings_to_db').done(function(response) {
+		if(response['text'] == '1'){
+			alert("5 random readings added to the database via POST");
+		}
+		else{
+			//Fail
+			alert("Something went wrong on the server");
+		}
+	}).fail(function() {
+		alert("Post method fail");
+	});
+}
+
+function add5readingsMQTT(){
+	$.post('/send_five_readings_mqtt').done(function(response) {
+		if(response['text'] == '1'){
+			alert("5 random readings added to Database via MQTT protocol");
+		}
+		else{
+			//Fail
+			alert("Something went wrong on the server");
+		}
+	}).fail(function() {
+		alert("Post method fail");
+	});
+}
+
+
+//Add password functionality in the future
+function deleteDatabase(){
+	$.post('/delete_all_readings').done(function(response) {
+		if(response['text'] == '1'){
+			//alert("Database deleted");
+			//document.getElementById('#databaseReadingsCount').innerHTML = '0';
+			get_database('#databaseReadingsText','#databaseReadingsCount'); //To update everything
+		}
+		else{
+			//Fail
+			alert("Something went wrong on the server");
+		}
+	}).fail(function() {
+		alert("Post method fail");
+	});
+}

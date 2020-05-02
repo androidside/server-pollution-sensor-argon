@@ -4,34 +4,103 @@
 
 #div_g .dygraph-title { font-size: 36px; text-shadow: gray 2px 2px 2px; }
 
-#div_g .dygraph-ylabel { font-size: 18px; text-shadow: gray -2px 2px 2px; }
+#div_g .dygraph-ylabel { font-size: 18px; text-shadow: gray -2px 2px 2px; }*/
 
-.chart { border: 1px dashed black; margin: 5px 5px 5px 50px; padding: 2px; } */
-#mapid {
-	height: 600px;
+/*******************/
+/**** Chart js ****/
+/*****************/
+#slidecontainer { /*Previously used when I didnt have ticks to have text on each side of the bar*/
+	/* box-sizing: border-box; */
+	/* width: 100%; */
+	/* display: flex; */
+	/* flex-direction: row; */
 }
 
-.navbar .navbar-nav {
+.slider {
+	-webkit-appearance: none;
+	appearance: none;
+	height: 25px;
+	/* width: 100%; */
+	border-radius: 5px;
+	background: #d3d3d3;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	background: #4CAF50;
+	cursor: pointer;
+}
+
+.sliderticks {
+	display: flex;
+	justify-content: space-between;
+	padding: 0 10px;
+}
+
+.sliderticks p {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	width: 1px;
+	background: #D3D3D3;
+	height: 10px;
+	line-height: 40px;
+	margin: 0 0 20px 0;
+}
+
+/******************/
+/**** Nav Bar ****/
+/****************/
+.navbar .navbar-nav .navbar-brand {
 	display: inline-block;
-	float: none;
 	vertical-align: top;
+	text-align: center;
 }
 
 .navbar .navbar-collapse {
 	text-align: center;
 }
 
-/* Navbar Modify the background color */
-/* .navbar-default {
-	background-color: lightgreen; 
-}*/
-.navbar-default {
-	/*     background-color: #FFFFFF; */
-	
+.navbar li {
+	display: inline;
+	text-align: center;
 }
 
+.navbar a {
+	display: inline-block;
+	text-align: center;
+	padding: 10px;
+}
 
-/* MAP RELATED */
+/**********************/
+/**** Map Related ****/
+/*********************/
+#mapid {
+	height: 600px;
+}
+
+/* Popups */
 .text-labels {
 	font-size: 2em;
 	font-weight: 700;
@@ -39,9 +108,9 @@
 	/* Use color, background, set margins for offset, etc */
 }
 
-/*
- *	Table
- *  --------------------------------------------------------- */
+/***************/
+/**** Table ****/
+/**************/
 #table_raw_readings {
 	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
 	border-collapse: collapse;
@@ -71,9 +140,9 @@
 	text-align: center;
 }
 
-/*
- *	Buttons
- *  --------------------------------------------------------- */
+/********************/
+/***** Buttons *****/
+/*******************/
 .btn {
 	display: inline-block;
 	padding: 10px 20px;
