@@ -176,17 +176,24 @@ function add5readingsMQTT(){
 
 //Add password functionality in the future
 function deleteDatabase(){
-	$.post('/delete_all_readings').done(function(response) {
-		if(response['text'] == '1'){
-			//alert("Database deleted");
-			//document.getElementById('#databaseReadingsCount').innerHTML = '0';
-			get_database('#databaseReadingsText','#databaseReadingsCount'); //To update everything
-		}
-		else{
-			//Fail
-			alert("Something went wrong on the server");
-		}
-	}).fail(function() {
-		alert("Post method fail");
-	});
+	var password = prompt("Password ?");
+	if (password != null){
+		$.post('/delete_all_readings', { text: password}).done(function(response) {
+			if(response['text'] == '1'){
+				//alert("Database deleted");
+				//document.getElementById('#databaseReadingsCount').innerHTML = '0';
+				get_database('#databaseReadingsText','#databaseReadingsCount'); //To update everything
+			}
+			else{
+				//Fail
+				alert("Wrong password. Database not deleted.");
+			}
+		}).fail(function() {
+			alert("Post method fail");
+		});
+	}
+	else{
+		alert("You should've entered a password");
+		
+	}
 }

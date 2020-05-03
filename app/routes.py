@@ -32,11 +32,15 @@ def index():
 
 @app.route('/delete_all_readings', methods=['GET', 'POST'])
 def delete_all_readings():
-    readings = Reading.query.all(); 
-    for r in readings:
-        db.session.delete(r)
-    db.session.commit()   
-    return jsonify({'text' : 1}), 200;
+    password_sent = request.form['text'];
+    if(password_sent == 'pituti'):
+        readings = Reading.query.all(); 
+        for r in readings:
+            db.session.delete(r)
+            db.session.commit()   
+        return jsonify({'text' : 1}), 200;
+    else:
+        return jsonify({'text': 0}); #We send 0 and we will check on the javascript if 0 was sent from this function
 
 # @mqtt.on_connect()
 # def handle_connect(client, userdata, flags, rc):
@@ -65,11 +69,11 @@ def send_five_readings_mqtt():
 #         datetimeclean=datetime.strftime(datetimeraw, '%Y-%#m-%#d')
 #         datetimeclean=datetime.strftime(datetimeraw, '%Y-%m-%d %H:%M:%S.%f')
 #         datetimeobject=datetime.now().strftime('%#Y-%#m-%#d %#H:%#M:%#S.%#f')
-        reading = Reading(sensor_id= random.randint(1,11),
+        reading = Reading(sensor_id= random.randint(0,2),
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
                           datetime=datetime.now(),
-                          intensity=random.randint(1,101))
+                          intensity=random.randint(0,98))
         #jsontosend=json.dumps(reading.format_mqtt_message(), indent=4, sort_keys=True, default=str)
         message=reading.format_mqtt_message()
         mqtt.publish('home/mytopic', message)
@@ -78,11 +82,11 @@ def send_five_readings_mqtt():
 @app.route('/add_five_readings_to_db', methods=['GET', 'POST'])
 def add_five_readings_to_db():
     for i in range(5):
-        reading = Reading(sensor_id= random.randint(1,11),
+        reading = Reading(sensor_id= random.randint(0,2), #Between [0,2]
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
                           datetime=datetime.now(),
-                          intensity=random.randint(1,101))
+                          intensity=random.randint(0,98)) #[0, 98]
         db.session.add(reading)
     db.session.commit()
     #return redirect(url_for('index'))

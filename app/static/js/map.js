@@ -273,13 +273,13 @@ function changeColorGeoJSON(geoJSON_object, changeColor_vars, label){
 //We set the popup content
 	
 	if(changeColor_vars.intensity<33){
-		geoJSON_object.getPopup().setContent("Pollution Level Bajo");
+		geoJSON_object.getPopup().setContent("Pollution Level Low at "+changeColor_vars.intensity+"/100");
 	}
 	else if(changeColor_vars.intensity<66){
-		geoJSON_object.getPopup().setContent("Pollution Level Mitad");
+		geoJSON_object.getPopup().setContent("Pollution Level Med at "+changeColor_vars.intensity+"/100");
 	}
 	else{
-		geoJSON_object.getPopup().setContent("Pollution Level Alto");
+		geoJSON_object.getPopup().setContent("Pollution Level High at "+changeColor_vars.intensity+"/100");
 	}
 	
 	

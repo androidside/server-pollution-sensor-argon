@@ -104,22 +104,22 @@ var config_pontiac = {
 				data: []
 			}, */{
 				label: 'Pontiac (low)',
-				backgroundColor: color(chartColors.green).alpha(0.5).rgbString(),
-				borderColor: chartColors.green,
+				backgroundColor: color(chartColors.orange).alpha(0.5).rgbString(),
+				borderColor: chartColors.orange,
 				fill: false,
 				cubicInterpolationMode: 'monotone',
 				data: []
 			}, {
 				label: 'Greenbelt (med)',
-				backgroundColor: color(chartColors.yellow).alpha(0.5).rgbString(),
-				borderColor: chartColors.yellow,
+				backgroundColor: color(chartColors.blue).alpha(0.5).rgbString(),
+				borderColor: chartColors.blue,
 				fill: false,
 				cubicInterpolationMode: 'monotone',
 				data: []
 			}, {
 				label: 'NASA Goddard (high)',
-				backgroundColor: color(chartColors.red).alpha(0.5).rgbString(),
-				borderColor: chartColors.red,
+				backgroundColor: color(chartColors.purple).alpha(0.5).rgbString(),
+				borderColor: chartColors.purple,
 				fill: false,
 				cubicInterpolationMode: 'monotone',
 				data: []
@@ -137,9 +137,9 @@ var config_pontiac = {
 					type: 'realtime',
 					realtime: {
 						duration: 50000, //default window is 50 seconds
-						ttl: 3600000, // 86400000 =  1 day, 3600000 = 1 hour for how long we keep the data in milliseconds (1 day = 86400000 ms) 
+						ttl: 3600000*2, // 86400000 =  1 day, 3600000 = 1 hour for how long we keep the data in milliseconds (1 day = 86400000 ms) 
 						refresh: 1000, //refresh data every second
-						delay: 30000, //If time were in UTC it would be -(14400000 - 20000), so push graph (4 hours of offset - 20 seconds). The 20 seconds are for buffering
+						delay: 0, //30000//If time were in UTC it would be -(14400000 - 20000), so push graph (4 hours of offset - 20 seconds). The 20 seconds are for buffering
 						pause: false,
 						onRefresh: onRefresh_pontiac
 					},
@@ -177,7 +177,9 @@ var config_pontiac = {
 			plugins: {
 				streaming: {
 					frameRate: 15
-				}
+				},
+			responsive: false,
+	        maintainAspectRatio: false,
 //			colorschemes:{
 //			scheme: 'brewer.Paired12',
 //			override: true,

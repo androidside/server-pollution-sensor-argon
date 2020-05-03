@@ -3,14 +3,19 @@ block map_content %}
 
 <div id="mapid"></div>
 <p>
-	<button id="locateISS" class="w3-button w3-black">Locate ISS</button>
+	<button id="locateISS" class="w3-button w3-black">Locate International Space Station</button>
 	<button id="gotoPontiac" class="w3-button w3-black">Go to
 		Pontiac</button>
 
 
 <div class="row justify-content-center">
 	<div class="col-md-12 nopadding">
-		<canvas id="chartLive_pontiac"></canvas>
+	<div class="table-responsive">
+	
+		<canvas id="chartLive_pontiac" style="height:600px" class="table"><
+		<!-- <canvas id="chartLive_pontiac"></canvas> -->
+		</div>
+		
 	</div>
 </div>
 
@@ -19,11 +24,11 @@ block map_content %}
 		<input type="range" min="0" max="5" value="5" class="slider"
 			id="duration_pontiac">
 		<div class="sliderticks">
-			<p>-5h</p>
-			<p>-4h</p>
-			<p>-3h</p>
 			<p>-2h</p>
 			<p>-1h</p>
+			<p>-30min</p>
+			<p>-10min</p>
+			<p>-5min</p>
 			<p>Live</p>
 		</div>
 
@@ -40,14 +45,16 @@ block map_content %}
 
 
 
-<div class="row justify-content-center mt-4">
+<div class="row justify-content-center">
 	<!--  mt-2 is used for margin top  https://v4-alpha.getbootstrap.com/utilities/spacing/-->
-	<div class="col-md-offset-2 col-md-8">
+	<div class="col-md-8 pt-4" align="center"> <!-- pt-4 stands for padding top 4 -->
 		<button id="livedata" class="w3-button w3-black">Live data</button>
-		<button id="lasthourdata" class="w3-button w3-black">Last
-			hour</button>
-		<button id="sendEmail" class="w3-button w3-black">Send Email</button>
-		<button id="sendSMS" class="w3-button w3-black">Send SMS</button>
+		<button id="last5min" class="w3-button w3-black">Last
+			5min</button>
+		<input id="togglePontiac" onclick="toggle_pontiac()"  type="button" class="w3-button w3-black" value="Hide Pontiac"></input>
+		<input id="toggleGreenbelt" onclick="toggle_greenbelt()"  type="button" class="w3-button w3-black" value="Hide Greenbelt"></input>
+		<input id="toggleGSFC" onclick="toggle_gsfc()"  type="button" class="w3-button w3-black" value="Hide GSFC"></input>
+		<p></p>
 		<button id="downloadData" class="w3-button w3-black">Download
 			Data</button>
 

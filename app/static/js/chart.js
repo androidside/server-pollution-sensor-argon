@@ -129,15 +129,35 @@ var isIE = navigator.userAgent.indexOf('MSIE') !== -1 || navigator.userAgent.ind
 document.getElementById('duration_pontiac').addEventListener(isIE ? 'change' : 'input', function() {
 	let duration = 0;
 	let delay = 0;
-	if (+this.value == 5){
-		duration = 50000; //We default to 50 seconds
+
+	switch(+this.value){
+	case 5: //Live Data
+		duration = 60000; //We default to 60 seconds
+		break;
+	case 4:
+		duration = 60*5*1000; //5 min
+		break;	
+	case 3:
+		duration = 60*10*1000; //10min
+		break;
+	case 2:
+		duration = 60*30*1000; //30min
+		break;
+	case 1:
+		duration = 60*60*1000*1; //1h
+		break;
+	case 0:
+		duration = 60*60*1000*2; //2h
+		break;	
+	default: 
+		console.log("ERROR Chart slider !");
+
 	}
-	else{//4 -> 1hour ...  3-> 2hours ... 2-> 3hour ... 1--> 4hours  ... 0-> 5hours
-		duration = (5 - this.value) * 3600 * 1000 // #hours * milliseconds
-	}
+
+
 	config_pontiac.options.scales.xAxes[0].realtime.duration = duration;
 	config_pontiac.options.scales.xAxes[0].realtime.delay = delay;
-	
+
 	window.chartLive_pontiac.update({duration: 0});
 });
 
@@ -150,9 +170,9 @@ document.getElementById('livedata').addEventListener('click', function() {
 	document.getElementById('duration_pontiac').value = '5';
 });
 
-document.getElementById('lasthourdata').addEventListener('click', function() {
+document.getElementById('last5min').addEventListener('click', function() {
 //	Change duration here
-	config_pontiac.options.scales.xAxes[0].realtime.duration = 3600000;
+	config_pontiac.options.scales.xAxes[0].realtime.duration = 60*5*1000;
 	window.chartLive_pontiac.update({duration: 0});
 	document.getElementById('duration_pontiac').value = '4';
 });
@@ -163,15 +183,62 @@ document.getElementById('lasthourdata').addEventListener('click', function() {
 	window.chartLive_pontiac.update({duration: 0});
 });*/
 
-document.getElementById('sendEmail').addEventListener('click', function() {
-	alert("Will send you an email someday");
-});
+function toggle_pontiac() // Index 0
+{
+	show_hide_chart(0);
+	var elem = document.getElementById("togglePontiac");
+	if (elem.value=="Hide Pontiac") {
+
+		elem.value = "Show Pontiac";
+	}
+	else{
+		elem.value = "Hide Pontiac";
+	}
+}
+
+function toggle_greenbelt() // Index 1
+{
+	show_hide_chart(1);
+	var elem = document.getElementById("toggleGreenbelt");
+	if (elem.value=="Hide Greenbelt") {
+
+		elem.value = "Show Greenbelt";
+	}
+	else{
+		elem.value = "Hide Greenbelt";
+	}
+}
+
+function toggle_gsfc() // Index 1
+{
+	show_hide_chart(2);
+	var elem = document.getElementById("toggleGSFC");
+	if (elem.value=="Hide GSFC") {
+
+		elem.value = "Show GSFC";
+	}
+	else{
+		elem.value = "Hide GSFC";
+	}
+}
+
+function show_hide_chart(index){
+
+	var ci = this.chartLive_pontiac;
+	var meta = ci.getDatasetMeta(index);
+
+	// See controller.isDatasetVisible comment
+	meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+
+	// We hid a dataset ... rerender the chart
+	ci.update();
+}
 
 //var colorNames = Object.keys(chartColors);
-document.getElementById('sendSMS').addEventListener('click', function() {
+/*document.getElementById('sendSMS').addEventListener('click', function() {
 	alert("Will send you an SMS someday (maybe)");
 
-});
+});*/
 
 document.getElementById('downloadData').addEventListener('click', function() {
 	alert("Feature not available yet");

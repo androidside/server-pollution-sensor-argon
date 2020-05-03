@@ -44,23 +44,23 @@ title }} - server_argon
 <div class="container">
 	<!-- Pretty Check boxes https://lokesh-coder.github.io/pretty-checkbox/#installation -->
 	<div class="row">
-		<div class="col-md-4 nopadding">
+		<div class="col-md-3 nopadding" align="center">
 			<span id="databaseReadingsButton"> <a
 				href="javascript:get_database('#databaseReadingsText','#databaseReadingsCount');">UpdateDatabase</a>
 				# of calls =
 			</span> <span id="#counterValue">0</span>
 		</div>
-		<div class="col-md-4 nopadding">
+		<div class="col-md-5 nopadding" align="center">
 			Database Updating?:
 			<div class="pretty p-switch p-fill">
 				<input type="checkbox" id="dbupdates" name="dbcheckbox"
-					onclick="db_updates();" />
+					onclick="db_updates();" checked/>
 				<div class="state p-success">
 					<label id="dbstatus">Status?</label>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 nopadding">
+		<div class="col-md-4 nopadding" align="center">
 			Database Readings count = <span id="#databaseReadingsCount">0</span>
 		</div>
 	</div>
@@ -70,8 +70,8 @@ title }} - server_argon
 <div class="container">
 	<ul class="nav nav-tabs">
 		<li class="active"><a data-toggle="tab" href="#map">Map</a></li>
-		<li><a data-toggle="tab" href="#plots">Background</a></li>
-		<li><a data-toggle="tab" href="#rawdb">Raw db</a></li>
+		<li><a data-toggle="tab" href="#plots">Blog</a></li>
+		<li><a data-toggle="tab" href="#rawdb">Submit manual input / Raw Database values</a></li>
 
 	</ul>
 
