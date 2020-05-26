@@ -17,15 +17,16 @@ def index():
     form = SensorForm()
 #     if request.method == 'GET':
 #         form.datetime.data = datetime.now()
-    if form.validate_on_submit():
-        reading = Reading(sensor_id=form.sensor_id.data, latitude=form.latitude.data,
-                          longitude=form.longitude.data, datetime=datetime.now(), intensity=form.intensity.data)
-        db.session.add(reading)
-        db.session.commit()
+#----------------- Only used to have a manual Form -----------------#
+#     if form.validate_on_submit():
+#         reading = Reading(sensor_id=form.sensor_id.data, latitude=form.latitude.data,
+#                           longitude=form.longitude.data, datetime=datetime.now(), intensity=form.intensity.data)
+#         db.session.add(reading)
+#         db.session.commit()
 #       flash('Input submitted for sensor with id {}, latitude={}, longitude={}, datetime={}, intensity={}'.format(
 #             form.id.data, form.latitude.data, form.longitude.data, form.datetime.data, form.intensity.data))
-        flash('Input submitted')
-        return redirect(url_for('index'))
+#         flash('Input submitted')
+#         return redirect(url_for('index'))
     
     readings = Reading.query.all(); 
     return render_template('index.html', title='Home', readings=readings, form=form)
@@ -34,10 +35,12 @@ def index():
 def delete_all_readings():
     password_sent = request.form['text'];
     if(password_sent == 'pituti'):
-        readings = Reading.query.all(); 
-        for r in readings:
-            db.session.delete(r)
-            db.session.commit()   
+        Reading.query.delete()
+        db.session.commit()
+#         readings = Reading.query.all(); 
+#         for r in readings:
+#             db.session.delete(r)
+#             db.session.commit()   
         return jsonify({'text' : 1}), 200;
     else:
         return jsonify({'text': 0}); #We send 0 and we will check on the javascript if 0 was sent from this function
@@ -73,7 +76,12 @@ def send_five_readings_mqtt():
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
                           datetime=datetime.now(),
-                          intensity=random.randint(0,98))
+                          intensity=random.randint(0,98),
+                          vgas=round(random.uniform(0,3.3),3),
+                          vgas0=round(random.uniform(0,3.3),3),
+                          temperature=round(random.uniform(-10,40),2),
+                          ppm=round(random.uniform(0,10),2),
+                          rgain=400000)                     
         #jsontosend=json.dumps(reading.format_mqtt_message(), indent=4, sort_keys=True, default=str)
         message=reading.format_mqtt_message()
         mqtt.publish('home/mytopic', message)
@@ -86,7 +94,12 @@ def add_five_readings_to_db():
                           latitude=random.uniform(-90, 90),
                           longitude=random.uniform(0, 180),
                           datetime=datetime.now(),
-                          intensity=random.randint(0,98)) #[0, 98]
+                          intensity=random.randint(0,98), #[0, 98]
+                          vgas=round(random.uniform(0,3.3),3),
+                          vgas0=round(random.uniform(0,3.3),3),
+                          temperature=round(random.uniform(-10,40),2),
+                          ppm=round(random.uniform(0,10),2),
+                          rgain=400000)   
         db.session.add(reading)
     db.session.commit()
     #return redirect(url_for('index'))
@@ -115,10 +128,19 @@ def postReadingESP32():
     db.session.commit()
     return jsonify(data),200 #I need to return a tuple, a JSON with a status code
 
+@app.route('/postReadingArgon', methods=['POST'])
+def postReadingArgon(): 
+    data = request.get_json() or {}
+    if 'message' not in data or 'phone' not in data or 'email' not in data or 'name' not in data:
+        return bad_request('must include full sensor info')
+    return jsonify(data),200 #I need to return a tuple, a JSON with a status code
 
 
 @app.route('/database', methods=['POST'])
 def send_database():
+    data = request.get_json() or {}
+#     if 'text' not in data :
+#         return bad_request('must count')
     readingsCount_js = int(request.form['text']); #We check how many readings does the server have
     #Query id of last element on database
     lastReading = Reading.query.order_by(Reading.id.desc()).first() #We pull the last item in the database

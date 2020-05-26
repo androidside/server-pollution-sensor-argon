@@ -29,8 +29,8 @@ async function get_dataBase2(){
 
 function get_database(readingsHolder, readingsCountHolder) {
 //	$(destElem).html('<img src="{{ url_for('static', filename='loading.gif') }}">');
-	$.post('/database', {
-		text: readingsCount_js.toString()
+	$.post('/database', 
+	{text: readingsCount_js.toString()	
 	}).done(function(response) {
 		if(response['text'] != '0'){
 			newReadings = JSON.parse(response['text']);
@@ -103,7 +103,7 @@ function show_database(readingsHolder, readingsCountHolder, newReadings){
 
 		//string with paragraphs
 		//htmlString +="<div><p><b>id</b>= "+newReadings[i].id+" <b>sensor_id</b>= "+newReadings[i].sensor_id+" <b>latitude</b>= "+newReadings[i].latitude+" <b>longitude</b>= "+newReadings[i].longitude+" <b>datetime</b>= "+newReadings[i].datetime+" <b>intensity</b>= "+newReadings[i].intensity+"</p></div>";
-		htmlString +="<tr><td><b>id</b> = "+newReadings[i].id+"</td><td><b>sensor_id</b> = "+newReadings[i].sensor_id+"</td><td><b>latitude</b> = "+newReadings[i].latitude+"</td><td><b>longitude</b> = "+newReadings[i].longitude+"</td><td><b>datetime</b> = "+newReadings[i].datetime+"</td><td><b>intensity</b> = "+newReadings[i].intensity+"</td></tr>";
+		htmlString +="<tr><td><b>id</b> = "+newReadings[i].id+"</td><td><b>sensor_id</b> = "+newReadings[i].sensor_id+"</td><td><b>latitude</b> = "+newReadings[i].latitude+"</td><td><b>longitude</b> = "+newReadings[i].longitude+"</td><td><b>datetime</b> = "+newReadings[i].datetime+"</td><td><b>intensity</b> = "+newReadings[i].intensity+"</td><td><b>vgas</b> = "+newReadings[i].vgas+"</td><td><b>vgas0</b> = "+newReadings[i].vgas0+"</td><td><b>temperature</b> = "+newReadings[i].temperature+"</td><td><b>ppm</b> = "+newReadings[i].ppm+"</td><td><b>rgain</b> = "+newReadings[i].rgain+"</td></tr>";
 	}
 
 	readingsCount_db = parseInt(newReadings[newReadings.length -1].id, 10); //Number of reading entries in the database
@@ -194,6 +194,6 @@ function deleteDatabase(){
 	}
 	else{
 		alert("You should've entered a password");
-		
+
 	}
 }

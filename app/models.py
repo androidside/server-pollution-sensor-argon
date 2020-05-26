@@ -9,13 +9,18 @@ class Reading(db.Model):
     longitude = db.Column(db.Float)
     datetime = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     intensity = db.Column(db.Integer)
+    vgas = db.Column(db.Float)
+    vgas0 = db.Column(db.Float)
+    temperature = db.Column(db.Float)
+    ppm = db.Column(db.Float)
+    rgain = db.Column(db.Integer) 
     
     
     
     def from_dict_mqtt(self, data):
-        for field in ['sensor_id', 'latitude', 'longitude', 'intensity']:
-            if field in data:
-                setattr(self, field, data[field])   
+        for column in self.__table__.columns:
+            if column.name in data:
+                setattr(self, column.name, data[column.name])   
         if 'datetime' in data:
             x=str(data['datetime'])
             #setattr(self, 'datetime', datetime.strptime(data['datetime'], '%Y-%m-%d %H:%M:%S.%f')
@@ -23,21 +28,30 @@ class Reading(db.Model):
 
 
     def from_dict(self, data):
-        for field in ['sensor_id', 'latitude', 'longitude', 'intensity']:
-            if field in data:
-                setattr(self, field, data[field])   
+        for column in self.__table__.columns:
+            if column.name in data:
+                setattr(self, column.name, data[column.name])   
         if 'datetime' in data:
             setattr(self, 'datetime', datetime.strptime(data['datetime'], '%Y-%m-%d %H:%M:%S.%f'))
             
     def from_dict_noDateTime(self, data):
-        for field in ['sensor_id', 'latitude', 'longitude', 'intensity']:
-            if field in data:
-                setattr(self, field, data[field])   
+        for column in self.__table__.columns:
+#        for field in ['sensor_id', 'latitude', 'longitude', 'intensity']:
+            if column.name in data:
+                setattr(self, column.name, data[column.name])   
         if 'datetime' in data:
             setattr(self, 'datetime', datetime.now()) #NOT UTC !
     
-    def format_mqtt_message(self): 
-        return "'id':{}, 'sensor_id':{}, 'latitude':{}, 'longitude':{}, 'datetime':{}, 'intensity':{}".format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime.strftime('%Y%m%d%H%M%S.%f'), self.intensity)
+    def format_mqtt_message(self):
+        mqtt_string = ""
+        for column in self.__table__.columns:
+            if(column.name != 'datetime'):
+                mqtt_string += "'"+column.name+"':"+str(getattr(self, column.name))+", "
+            if (column.name == 'datetime'):
+                mqtt_string += "'"+column.name+"':"+self.datetime.strftime('%Y%m%d%H%M%S.%f')+", "                
+        mqtt_string = mqtt_string[:-2]#could do a slice at the end of the loop to remove last space and coma
+        #old_string = "'id':{}, 'sensor_id':{}, 'latitude':{}, 'longitude':{}, 'datetime':{}, 'intensity':{}".format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime.strftime('%Y%m%d%H%M%S.%f'), self.intensity)
+        return mqtt_string
     
 #     def to_dict(self, row):
 #         d = {}
@@ -59,7 +73,13 @@ class Reading(db.Model):
     def test(self):
         return 'hello world'
     def __repr__(self):
-        return '<id={}, sensor_id={}, latitude={}, longitude={}, datetime={}, intensity={}>'.format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime, self.intensity)
+        representation_string = '<'
+        for column in self.__table__.columns:
+            representation_string += column.name+'='+str(getattr(self, column.name))+", "
+        representation_string = representation_string[:-2]#could do a slice at the end of the loop to remove last space and coma
+        representation_string += '>'  
+        #old string = '<id={}, sensor_id={}, latitude={}, longitude={}, datetime={}, intensity={}>'.format(self.id, self.sensor_id,self.latitude,self.longitude, self.datetime, self.intensity)     
+        return representation_string
 
     
 #     

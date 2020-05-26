@@ -3,19 +3,19 @@ block map_content %}
 
 <div id="mapid"></div>
 <p>
-	<button id="locateISS" class="w3-button w3-black">Locate International Space Station</button>
+	<button id="locateISS" class="w3-button w3-black">Locate
+		International Space Station</button>
 	<button id="gotoPontiac" class="w3-button w3-black">Go to
 		Pontiac</button>
-
-
 <div class="row justify-content-center">
-	<div class="col-md-12 nopadding">
-	<div class="table-responsive">
-	
-		<canvas id="chartLive_pontiac" style="height:600px" class="table"><
+	<div class="col-md-12">
+		<div class="table-responsive">
+
+			<canvas id="chartLive_pontiac" style="height: 600px" class="table"><
 		<!-- <canvas id="chartLive_pontiac"></canvas> -->
-		</div>
 		
+		</div>
+
 	</div>
 </div>
 
@@ -47,13 +47,16 @@ block map_content %}
 
 <div class="row justify-content-center">
 	<!--  mt-2 is used for margin top  https://v4-alpha.getbootstrap.com/utilities/spacing/-->
-	<div class="col-md-8 pt-4" align="center"> <!-- pt-4 stands for padding top 4 -->
+	<div class="col-md-8 pt-4" align="center">
+		<!-- pt-4 stands for padding top 4 -->
 		<button id="livedata" class="w3-button w3-black">Live data</button>
-		<button id="last5min" class="w3-button w3-black">Last
-			5min</button>
-		<input id="togglePontiac" onclick="toggle_pontiac()"  type="button" class="w3-button w3-black" value="Hide Pontiac"></input>
-		<input id="toggleGreenbelt" onclick="toggle_greenbelt()"  type="button" class="w3-button w3-black" value="Hide Greenbelt"></input>
-		<input id="toggleGSFC" onclick="toggle_gsfc()"  type="button" class="w3-button w3-black" value="Hide GSFC"></input>
+		<button id="last5min" class="w3-button w3-black">Last 5min</button>
+		<input id="togglePontiac" onclick="toggle_pontiac()" type="button"
+			class="w3-button w3-black" value="Hide Pontiac"></input> <input
+			id="toggleGreenbelt" onclick="toggle_greenbelt()" type="button"
+			class="w3-button w3-black" value="Hide Greenbelt"></input> <input
+			id="toggleGSFC" onclick="toggle_gsfc()" type="button"
+			class="w3-button w3-black" value="Hide GSFC"></input>
 		<p></p>
 		<button id="downloadData" class="w3-button w3-black">Download
 			Data</button>
@@ -68,16 +71,24 @@ block map_content %}
 
 {% endblock %} {%block plots_content %}
 
+<div>
+	<img src="/static/img/demo.jpg" class="img-fluid"
+		alt="Responsive image">
 
+</div>
 
 
 
 
 {% endblock %} {%block rawdb_content %}
 
-<h3>Submit a new value</h3>
+<!--------------------------------->
+<!-- FORM TO SUBMIT MANUAL VALUE -->
+<!--------------------------------->
+
+<!-- <h3>Submit a new value</h3> -->
 <div class="row">
-	<div class="col-md-4">{{ wtf.quick_form(form) }}</div>
+	<!-- <div class="col-md-4">{{ wtf.quick_form(form) }}</div> -->
 </div>
 <p></p>
 <div>
@@ -90,6 +101,11 @@ block map_content %}
 				<th>longitude</th>
 				<th>datetime</th>
 				<th>intensity</th>
+				<th>vgas</th>
+				<th>vgas0</th>
+				<th>temperature</th>
+				<th>ppm</th>
+				<th>rgain</th>
 			</tr>
 		</thead>
 		<tbody id="#databaseReadingsText"></tbody>
