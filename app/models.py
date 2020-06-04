@@ -1,5 +1,5 @@
 from app import db
-from datetime import datetime
+from datetime import datetime, timedelta
 from IPython.utils.tz import utcnow
 
 class Reading(db.Model):
@@ -32,7 +32,11 @@ class Reading(db.Model):
             if column.name in data:
                 setattr(self, column.name, data[column.name])   
         if 'datetime' in data:
-            setattr(self, 'datetime', datetime.strptime(data['datetime'], '%Y-%m-%d %H:%M:%S.%f'))
+            if data['datetime'] == '-1':
+                setattr(self, 'datetime', datetime.now()) #NOT UTC !            
+            else: 
+               #setattr(self, 'datetime', datetime.now()) #NOT UTC !            
+               setattr(self, 'datetime', datetime.strptime(data['datetime'], '%Y-%m-%d %H:%M:%S.%f') - timedelta(hours=4))
             
     def from_dict_noDateTime(self, data):
         for column in self.__table__.columns:

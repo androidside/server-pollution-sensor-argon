@@ -123,7 +123,8 @@ def postReadingESP32():
         return bad_request('must include full sensor info')
     reading = Reading()
 #   data is already a dictionary {'key1' : 'value1', 'key2' : 'value2'}
-    reading.from_dict_noDateTime(data)
+    #reading.from_dict_noDateTime(data)
+    reading.from_dict(data)   
     db.session.add(reading)
     db.session.commit()
     return jsonify(data),200 #I need to return a tuple, a JSON with a status code
