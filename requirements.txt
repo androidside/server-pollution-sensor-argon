@@ -1,10 +1,13 @@
 alembic==0.9.6
+azt==0.0.7
 Babel==2.5.1
 backcall==0.1.0
 blinker==1.4
 certifi==2017.7.27.1
 chardet==3.0.4
 click==6.7
+csvalidate==1.1.1
+Cython==0.29.19
 debug==0.3.2
 decorator==4.4.2
 dominate==2.3.1
@@ -12,6 +15,7 @@ elasticsearch==7.5.1
 Flask==1.0.2
 Flask-Babel==0.11.2
 Flask-Bootstrap==3.3.7.1
+Flask-CSV==1.2.0
 Flask-Login==0.4.0
 Flask-Mail==0.9.1
 Flask-Migrate==2.1.1
@@ -30,12 +34,14 @@ jedi==0.16.0
 Jinja2==2.10
 Mako==1.0.7
 MarkupSafe==1.0
+marshmallow==3.5.1
 paho-mqtt==1.5.0
 parso==0.6.2
 pexpect==4.8.0
 pickleshare==0.7.5
 prompt-toolkit==3.0.4
 ptyprocess==0.6.0
+pyfiglet==0.8.post1
 Pygments==2.6.1
 PyJWT==1.5.3
 python-dateutil==2.6.1
@@ -46,6 +52,7 @@ requests==2.18.4
 see==1.4.1
 six==1.11.0
 SQLAlchemy==1.1.14
+termcolor==1.1.0
 traitlets==4.3.3
 urllib3==1.22
 visitor==0.1.3
